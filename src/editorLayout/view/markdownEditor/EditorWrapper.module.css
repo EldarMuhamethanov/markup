@@ -1,0 +1,12 @@
+.wrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  border: 1px solid #e8e8e8;
+  padding: 10px;
+  flex: 1 0 0;
+  overflow: auto;
+}
