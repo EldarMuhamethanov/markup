@@ -8,7 +8,7 @@ import { Header } from "./header/Header";
 import { CreateDocumentModal } from "./filesActionModals/CreateDocumentModal";
 import { RenameDocumentModal } from "./filesActionModals/RenameDocumentModal";
 
-const Modals = () => {
+const Modals: React.FC = () => {
   return (
     <>
       <CreateDocumentModal type={"file"} />
@@ -18,7 +18,7 @@ const Modals = () => {
   );
 };
 
-const EditorLayout = () => {
+const EditorLayout: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
 
   return (

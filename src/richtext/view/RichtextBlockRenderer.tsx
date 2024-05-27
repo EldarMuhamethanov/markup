@@ -36,9 +36,9 @@ function renderBlocks(contentState: ContentStateData) {
   });
 }
 
-const RichtextBlockRenderer = ({
+const RichtextBlockRenderer: React.FC<RichtextBlockRendererProps> = ({
   contentState,
-}: RichtextBlockRendererProps) => {
+}) => {
   return <>{renderBlocks(contentState)}</>;
 };
 

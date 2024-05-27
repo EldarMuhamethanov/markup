@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import styles from "./MarkdownEditorLayout.module.css";
 import {
   RichtextEditor,
@@ -7,12 +7,11 @@ import {
 import { ContentState } from "../../../richtext/model/content/ContentState";
 import Markdown from "markdown-to-jsx";
 import { EditorWrapper } from "./EditorWrapper";
-import { EditorHeader } from "./EditorHeader";
 import { observer } from "mobx-react-lite";
 import { selectedDocumentData } from "../../model/AppModel";
 import { EmptyLayout } from "./EmptyLayout";
 
-const MarkdownEditorLayout: FC = observer(() => {
+const MarkdownEditorLayout: React.FC = observer(() => {
   const contentState = selectedDocumentData.contentState;
   const contentStateCopy = contentState && ContentState.copy(contentState);
 
@@ -25,7 +24,7 @@ const MarkdownEditorLayout: FC = observer(() => {
       {!contentStateCopy && <EmptyLayout />}
       {contentStateCopy && (
         <EditorWrapper
-          header={<EditorHeader title={"Markdown"} />}
+          header={"Markdown"}
           content={
             <RichtextEditor
               contentState={contentStateCopy}
@@ -36,7 +35,7 @@ const MarkdownEditorLayout: FC = observer(() => {
       )}
       {contentStateCopy && (
         <EditorWrapper
-          header={<EditorHeader title={"Предпросмотр"} />}
+          header={"Предпросмотр"}
           content={
             <Markdown>{ContentState.getText(contentStateCopy)}</Markdown>
           }

@@ -17,10 +17,10 @@ interface RichtextEditorProps {
   setContentState: (contentState: ContentStateData) => void;
 }
 
-const RichtextEditor = ({
+const RichtextEditor: React.FC<RichtextEditorProps> = ({
   contentState,
   setContentState,
-}: RichtextEditorProps) => {
+}) => {
   const editorRef = useRef<HTMLDivElement | null>(null);
 
   const { modifyRichtextFn, undo, redo } = useRichtextState({

@@ -5,7 +5,7 @@ interface EditorHeaderProps {
   title: string;
 }
 
-const EditorHeader = ({ title }: EditorHeaderProps) => {
+const EditorHeader: React.FC<EditorHeaderProps> = ({ title }) => {
   return (
     <div className={styles.header}>
       <span className={styles.title}>{title}</span>

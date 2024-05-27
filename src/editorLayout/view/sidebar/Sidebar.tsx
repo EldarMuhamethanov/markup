@@ -12,7 +12,7 @@ interface SidebarProps {
   show: boolean;
 }
 
-const Sidebar = ({ show }: SidebarProps) => {
+const Sidebar: React.FC<SidebarProps> = ({ show }) => {
   return (
     <Sider
       style={cssStyles}

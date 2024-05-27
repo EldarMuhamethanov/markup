@@ -1,7 +1,8 @@
 import Title from "antd/es/typography/Title";
 import styles from "./EmptyLayout.module.css";
+import React from "react";
 
-const EmptyLayout = () => {
+const EmptyLayout: React.FC = () => {
   return (
     <div className={styles.layout}>
       <div className={styles.stub}>
