@@ -1,8 +1,6 @@
 import {
   BlockData,
-  CodeBlock,
   HeaderBlock,
-  ImageBlock,
   OrderedListItemBlock,
   QuoteBlock,
   TableBlock,
@@ -61,40 +59,6 @@ const checkUrl = (url: string): string | null => {
   return null;
 };
 
-const checkImage = (row: string): ImageBlock | null => {
-  const imageWithLinkMatch = row.match(
-    /\[\s*!\[\s*(.+)\s*\]\((.+)\)\](\s*(.+)\s*)/
-  );
-  if (
-    imageWithLinkMatch &&
-    imageWithLinkMatch[1] &&
-    imageWithLinkMatch[2] &&
-    imageWithLinkMatch[3]
-  ) {
-    const imageUrl = checkUrl(imageWithLinkMatch[2]);
-    const linkUrl = checkUrl(imageWithLinkMatch[3]);
-    if (!imageUrl || !linkUrl) {
-      return null;
-    }
-    return {
-      type: "image",
-      alt: imageWithLinkMatch[1],
-      src: imageUrl,
-      href: linkUrl,
-    };
-  }
-
-  const matchWithoutLink = row.match(/\s*!\[\s*(.+)\s*\]\((.+)\)/);
-  if (matchWithoutLink && matchWithoutLink[1] && matchWithoutLink[2]) {
-    return {
-      type: "image",
-      alt: matchWithoutLink[1],
-      src: matchWithoutLink[2],
-    };
-  }
-  return null;
-};
-
 const checkCodeOpenClose = (row: string): boolean => {
   return !!row.match(/^```.*\s*$/);
 };
@@ -121,10 +85,14 @@ const checkRow = (
     return null;
   }
 
-  const cells = row
-    .split("|")
-    .map((cell) => cell.trim())
-    .filter((cell) => !!cell);
+  const cells = row.split("|").map((cell) => cell.trim());
+
+  if (!cells[0]) {
+    cells.splice(0, 1);
+  }
+  if (!cells[cells.length - 1]) {
+    cells.splice(cells.length - 1, 1);
+  }
 
   if (type === "tableHeader") {
     return {
@@ -171,10 +139,7 @@ export const getRowParser = () => {
       };
     }
     const blockParseResult =
-      checkHeader(row) ||
-      checkQuote(row) ||
-      checkListItem(row) ||
-      checkImage(row);
+      checkHeader(row) || checkQuote(row) || checkListItem(row);
 
     if (blockParseResult) {
       resetHeaderData();

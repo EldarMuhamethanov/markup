@@ -19,13 +19,6 @@ type UnorderedListItemBlock = {
   text: string;
 };
 
-type ImageBlock = {
-  type: "image";
-  alt: string;
-  src: string;
-  href?: string;
-};
-
 type CodeBlock =
   | {
       type: "codeOpen";
@@ -60,7 +53,6 @@ type BlockData =
   | OrderedListItemBlock
   | UnorderedListItemBlock
   | QuoteBlock
-  | ImageBlock
   | CodeBlock
   | TableBlock
   | PlainTextBlock;
@@ -120,7 +112,6 @@ export type {
   QuoteBlock,
   OrderedListItemBlock,
   UnorderedListItemBlock,
-  ImageBlock,
   CodeBlock,
   PlainTextBlock,
   TableHeaderBlock,

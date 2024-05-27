@@ -1,7 +1,11 @@
 import { RefObject, useEffect } from "react";
 import { getStyledRow } from "../getStyledRow";
 
-const useParseBlockContent = (ref: RefObject<HTMLElement>, text: string) => {
+const useParseBlockContent = (
+  ref: RefObject<HTMLElement>,
+  text: string,
+  withImages = false
+) => {
   useEffect(() => {
     if (!ref.current) {
       return;
@@ -12,8 +16,8 @@ const useParseBlockContent = (ref: RefObject<HTMLElement>, text: string) => {
       return;
     }
 
-    ref.current.innerHTML = getStyledRow(text);
-  }, [ref, text]);
+    ref.current.innerHTML = getStyledRow(text, withImages);
+  }, [ref, text, withImages]);
 };
 
 export { useParseBlockContent };

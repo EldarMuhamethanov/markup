@@ -1,7 +1,6 @@
 import React from "react";
 import { DefaultGroup } from "../common/types";
 import { HeaderView } from "./blocks/Header";
-import { ImageView } from "./blocks/ImageView";
 import { PlainTextView } from "./blocks/PlainTextView";
 
 const DefaultGroups: React.FC<DefaultGroup> = (group) => {
@@ -9,9 +8,6 @@ const DefaultGroups: React.FC<DefaultGroup> = (group) => {
 
   if (block.type === "header") {
     return <HeaderView {...block} />;
-  }
-  if (block.type === "image") {
-    return <ImageView {...block} />;
   }
   if (block.type === "plainText") {
     return <PlainTextView {...block} />;
