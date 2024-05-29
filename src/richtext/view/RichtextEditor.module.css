@@ -3,4 +3,7 @@
   height: 100%;
   white-space: pre;
   outline: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

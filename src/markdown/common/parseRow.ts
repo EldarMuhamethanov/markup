@@ -51,14 +51,6 @@ const checkListItem = (
   return null;
 };
 
-const checkUrl = (url: string): string | null => {
-  const match = url.match(/\s*(https?:\/\/[\w-]{1,32}\.[\w-]{1,32}[^\s@]*)\s*/);
-  if (match) {
-    return url;
-  }
-  return null;
-};
-
 const checkCodeOpenClose = (row: string): boolean => {
   return !!row.match(/^```.*\s*$/);
 };

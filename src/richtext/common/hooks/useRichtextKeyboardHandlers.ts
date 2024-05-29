@@ -8,47 +8,47 @@ import {
 
 const checkPrintableKeys = [
   {
-    key: "z",
+    code: "KeyZ",
     withCtrl: true,
   },
   {
-    key: "z",
+    code: "KeyY",
     withCtrl: true,
   },
   {
-    key: "y",
+    code: "KeyB",
     withCtrl: true,
   },
   {
-    key: "b",
+    code: "KeyI",
     withCtrl: true,
   },
   {
-    key: "i",
+    code: "KeyS",
     withCtrl: true,
   },
   {
-    key: "s",
+    code: "KeyU",
     withCtrl: true,
   },
   {
-    key: "u",
+    code: "KeyA",
     withCtrl: true,
   },
   {
-    key: "a",
+    code: "KeyC",
     withCtrl: true,
   },
   {
-    key: "c",
+    code: "KeyX",
     withCtrl: true,
   },
   {
-    key: "v",
+    code: "KeyV",
     withCtrl: true,
   },
   {
-    key: "r",
+    code: "KeyR",
     withCtrl: true,
   },
 ];
@@ -56,8 +56,8 @@ const checkPrintableKeys = [
 function isPrintableKey(e: KeyboardEvent) {
   return (
     e.key.length === 1 &&
-    !checkPrintableKeys.some(({ key, withCtrl }) => {
-      return key === e.key.toLowerCase() && withCtrl === e.ctrlKey;
+    !checkPrintableKeys.some(({ code, withCtrl }) => {
+      return code === e.code && withCtrl === e.ctrlKey;
     })
   );
 }

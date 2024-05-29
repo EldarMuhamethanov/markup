@@ -4,6 +4,7 @@ const textPlainRegexp =
 const imageWithoutLinkRegex = /^\s*!\[\s*(.+)\s*\]\((.+)\)/;
 const imageWithLinkRegex = /^\[\s*!\[\s*(.+)\s*\]\((.+)\)\]\((\s*(.+)\s*)\)/;
 const linkRegex = /\s*(https?:\/\/[\w-]{1,32}\.[\w-]{1,32}[^\s@]*)\s*/;
+const hyperlinkRegex = /^\[\s*(.+)\s*\]\(\s*(.+)\s*\)/;
 
 const inlineStylesMap = {
   bold: {
@@ -99,6 +100,18 @@ function getStyledRow(str: string, withImages = false): string {
             res += `<img alt="${matchWithoutLink[1]}" src="${imageUrl}" />`;
             source = source.slice(matchedStr.length);
           }
+        }
+      }
+    }
+    if (!captured) {
+      const hyperlinkMatch = source.match(hyperlinkRegex);
+      if (hyperlinkMatch && hyperlinkMatch[1] && hyperlinkMatch[2]) {
+        const matchedStr = hyperlinkMatch[0];
+        const linkUrl = checkUrl(hyperlinkMatch[2]);
+        if (linkUrl) {
+          captured = true;
+          res += `<a href="${linkUrl}" target="_blank">${hyperlinkMatch[1]}</a>`;
+          source = source.slice(matchedStr.length);
         }
       }
     }

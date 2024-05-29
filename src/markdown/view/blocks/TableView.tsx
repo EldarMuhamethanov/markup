@@ -1,5 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import { TableGroup } from "../../common/types";
+import { useParseBlockContent } from "../../common/hooks/useParseBlockContent";
+
+const TableCell: React.FC<{ cell: string }> = ({ cell }) => {
+  const ref = useRef<HTMLTableDataCellElement>(null);
+
+  useParseBlockContent(ref, cell);
+
+  return (
+    <td ref={ref} style={{ border: "1px solid #dddddd" }}>
+      {cell}
+    </td>
+  );
+};
 
 const TableView: React.FC<TableGroup> = (props) => {
   const maxColumns = Math.max(
@@ -20,22 +33,24 @@ const TableView: React.FC<TableGroup> = (props) => {
 
   return (
     <table style={{ borderSpacing: 0, borderCollapse: "collapse" }}>
-      <tr>
-        {normalizeArr(props.headers).map((header, index) => (
-          <th key={index} style={{ border: "1px solid #dddddd" }}>
-            {header}
-          </th>
-        ))}
-      </tr>
-      {props.rows.map((cells, index) => (
-        <tr key={index}>
-          {normalizeArr(cells).map((cell, index) => (
-            <td key={index} style={{ border: "1px solid #dddddd" }}>
-              {cell}
-            </td>
+      <thead>
+        <tr>
+          {normalizeArr(props.headers).map((header, index) => (
+            <th key={index} style={{ border: "1px solid #dddddd" }}>
+              {header}
+            </th>
           ))}
         </tr>
-      ))}
+      </thead>
+      <tbody>
+        {props.rows.map((cells, index) => (
+          <tr key={index}>
+            {normalizeArr(cells).map((cell, index) => (
+              <TableCell key={index} cell={cell} />
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };

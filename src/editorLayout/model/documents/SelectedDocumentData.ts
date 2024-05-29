@@ -37,6 +37,15 @@ class SelectedDocumentData {
     }
     return null;
   }
+
+  get fileName() {
+    if (this.selectedDocumentId) {
+      return (
+        this._filesDataModel.documentsData[this.selectedDocumentId]?.name || ""
+      );
+    }
+    return null;
+  }
 }
 
 export { SelectedDocumentData };

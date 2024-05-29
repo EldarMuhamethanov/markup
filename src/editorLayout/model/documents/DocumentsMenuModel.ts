@@ -117,6 +117,7 @@ class DocumentsMenuModel {
 
     if (selectedDocument && selectedDocument.type === "folder") {
       selectedDocument.files.push(newDocument);
+      this._selectedDocumentModel.setSelectedDocument(newDocument.id);
       this._updateLocalStorageValues();
       return;
     } else if (selectedDocument && selectedDocument.type === "file") {
@@ -125,6 +126,7 @@ class DocumentsMenuModel {
         const folder: FolderData =
           selectedDocumentPath[selectedDocumentPath.length - 1];
         folder.files.push(newDocument);
+        this._selectedDocumentModel.setSelectedDocument(newDocument.id);
         this._updateLocalStorageValues();
         return;
       }

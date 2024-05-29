@@ -7,6 +7,7 @@ import { Sidebar } from "./sidebar/Sidebar";
 import { Header } from "./header/Header";
 import { CreateDocumentModal } from "./filesActionModals/CreateDocumentModal";
 import { RenameDocumentModal } from "./filesActionModals/RenameDocumentModal";
+import { PdfTargetContext } from "./padConvertation/PdfTargetContext";
 
 const Modals: React.FC = () => {
   return (
@@ -22,16 +23,18 @@ const EditorLayout: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
 
   return (
-    <Layout className={styles.mainLayout}>
-      <Header onMenuButtonClick={() => setShowSidebar(!showSidebar)} />
-      <Layout hasSider={true} className={styles.contentRow}>
-        <Sidebar show={showSidebar} />
-        <Content>
-          <MarkdownEditorLayout />
-        </Content>
+    <PdfTargetContext.Provider value={{ targetRef: { current: null } }}>
+      <Layout className={styles.mainLayout}>
+        <Header onMenuButtonClick={() => setShowSidebar(!showSidebar)} />
+        <Layout hasSider={true} className={styles.contentRow}>
+          <Sidebar show={showSidebar} />
+          <Content>
+            <MarkdownEditorLayout />
+          </Content>
+        </Layout>
+        <Modals />
       </Layout>
-      <Modals />
-    </Layout>
+    </PdfTargetContext.Provider>
   );
 };
 

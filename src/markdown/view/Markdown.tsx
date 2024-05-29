@@ -1,18 +1,21 @@
-import React, { useCallback, useMemo } from "react";
+import React, { RefObject, useCallback, useContext } from "react";
 import { groupBlocks } from "../common/groupBlocks";
 import { getRowParser } from "../common/parseRow";
-import { BlockData, GroupBlockData } from "../common/types";
+import { BlockData } from "../common/types";
 import { DefaultGroups } from "./DefaultGroups";
 import { CodeBlockView } from "./blocks/CodeBlockView";
 import { ListGroups } from "./ListGroups";
 import { QuoteView } from "./blocks/QuoteView";
 import { TableView } from "./blocks/TableView";
+import { PdfTargetContext } from "../../editorLayout/view/padConvertation/PdfTargetContext";
 
 type MarkdownProps = {
   text: string;
 };
 
 const Markdown: React.FC<MarkdownProps> = ({ text }) => {
+  const { targetRef } = useContext(PdfTargetContext);
+
   const getGroups = useCallback(() => {
     const parser = getRowParser();
     return groupBlocks(
@@ -21,7 +24,7 @@ const Markdown: React.FC<MarkdownProps> = ({ text }) => {
   }, [text]);
 
   return (
-    <div>
+    <div ref={targetRef as RefObject<HTMLDivElement>}>
       {getGroups().map((group, index) => {
         const key = `${group.type}_${index}`;
         switch (group.type) {

@@ -1,6 +1,7 @@
 import { Paragraph, ParagraphData } from "./ParagraphData";
 import {
   createEmptyOrderedMap,
+  createOrderedMapFromValues,
   getItemByIndex,
   getLastItem,
   OrderedMap,
@@ -13,6 +14,18 @@ interface ContentStateData {
 }
 
 const ContentState = {
+  createByContent(content: string): ContentStateData {
+    return {
+      blockMap: createOrderedMapFromValues(
+        content.split("\n").map((row) =>
+          Paragraph.create({
+            text: row,
+          })
+        )
+      ),
+    };
+  },
+
   createEmpty(): ContentStateData {
     return {
       blockMap: createEmptyOrderedMap(),
@@ -34,7 +47,7 @@ const ContentState = {
 
   createWithOneParagraph(): ContentStateData {
     const paragraph = Paragraph.create({
-      text: "Жопа",
+      text: "Здесь можно писать текст...",
     });
     return {
       blockMap: {
