@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { RefObject, useMemo, useRef } from "react";
 import styles from "./RichtextEditor.module.css";
 import { ContentStateData } from "../model/content/ContentState";
 import { SelectionStateData } from "../model/selection/SelectionState";
@@ -11,13 +11,16 @@ import { useRichTextUndoRedo } from "../common/hooks/useRichTextUndoRedo";
 import { RichtextBlockRenderer } from "./RichtextBlockRenderer";
 import { useClipboardEventsHandlers } from "../common/hooks/useClipboardEventsHandlers";
 import { useRichtextKeyboardStylesHandlers } from "../common/hooks/useRichtextKeyboardStylesHandlers";
+import { ToolbarPortal } from "../../editorLayout/view/toolbar/ToolbarPortal";
 
 interface RichtextEditorProps {
+  containerRef: RefObject<HTMLElement | null>;
   contentState: ContentStateData;
   setContentState: (contentState: ContentStateData) => void;
 }
 
 const RichtextEditor: React.FC<RichtextEditorProps> = ({
+  containerRef,
   contentState,
   setContentState,
 }) => {
@@ -50,6 +53,11 @@ const RichtextEditor: React.FC<RichtextEditorProps> = ({
       ref={editorRef}
     >
       <RichtextBlockRenderer contentState={contentState} />
+      <div className={styles.rowNumbersContainer}></div>
+      <ToolbarPortal
+        operationHandler={operationHandler}
+        container={containerRef.current}
+      />
     </div>
   );
 };

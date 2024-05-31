@@ -1,0 +1,61 @@
+.markdown {
+  font-family: Roboto;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: auto;
+}
+
+table > thead > tr > th {
+  border: 1px solid #dddddd;
+}
+
+table > thead > tr > th,
+table > thead > tr > td {
+  border-bottom-width: 2px;
+}
+
+table > thead > tr > th,
+table > tbody > tr > td {
+  padding: 8px;
+  line-height: 1.4;
+  vertical-align: top;
+}
+
+pre {
+  font-size: 15px;
+  padding: 10px;
+  line-height: 1.5;
+  background: linear-gradient(
+    to bottom,
+    #fff 0,
+    #fff 0.75rem,
+    #f5f7fa 0.75rem,
+    #f5f7fa 2.75rem,
+    #fff 2.75rem,
+    #fff 4rem
+  );
+  background-size: 100% 4rem;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+blockquote {
+  margin: 0;
+}
+
+blockquote > p {
+  font-style: italic;
+  padding: 10px 14px;
+  border-left: 3px solid #a0aabf;
+  margin: 0;
+}
+
+p {
+  line-height: 1.5;
+}

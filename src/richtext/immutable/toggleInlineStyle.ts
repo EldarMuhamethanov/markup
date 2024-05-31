@@ -13,6 +13,8 @@ const styleToWrapperMap: Map<ToggleInlineStyles, string> = new Map([
   ["strikethrow", "~~"],
   ["subscript", "~"],
   ["superscript", "^"],
+  ["highlight", "=="],
+  ["inlineCode", "`"],
 ]);
 
 function toggleInlineStyle(

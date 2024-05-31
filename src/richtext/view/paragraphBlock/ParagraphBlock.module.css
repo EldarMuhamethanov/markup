@@ -28,3 +28,17 @@
   margin: 0;
   white-space: pre-line;
 }
+
+.wrapper {
+  position: relative;
+}
+
+.index {
+  position: absolute;
+  left: -35px;
+  top: 0;
+  z-index: 3;
+  color: #333;
+  width: 20px;
+  text-align: end;
+}

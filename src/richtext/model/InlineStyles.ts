@@ -3,6 +3,8 @@ type ToggleInlineStyles =
   | "italic"
   | "strikethrow"
   | "subscript"
-  | "superscript";
+  | "superscript"
+  | "highlight"
+  | "inlineCode";
 
 export type { ToggleInlineStyles };

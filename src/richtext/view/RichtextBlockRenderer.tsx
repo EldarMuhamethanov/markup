@@ -10,7 +10,7 @@ interface RichtextBlockRendererProps {
 function renderBlocks(contentState: ContentStateData) {
   let codeBlockOpened = false;
 
-  return contentState.blockMap.order.map((key) => {
+  return contentState.blockMap.order.map((key, index) => {
     const paragraph = contentState.blockMap.blocks[key];
     let paragraphType = getParagraphType(paragraph.text);
     if (
@@ -29,6 +29,7 @@ function renderBlocks(contentState: ContentStateData) {
     return (
       <ParagraphBlock
         key={key}
+        index={index}
         paragraph={paragraph}
         paragraphType={paragraphType}
       />

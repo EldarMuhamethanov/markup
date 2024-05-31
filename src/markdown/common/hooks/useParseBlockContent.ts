@@ -1,5 +1,6 @@
 import { RefObject, useEffect } from "react";
 import { getStyledRow } from "../getStyledRow";
+import { escapeHTML } from "../../../core/html/escapeHTML";
 
 const useParseBlockContent = (
   ref: RefObject<HTMLElement>,
@@ -16,7 +17,7 @@ const useParseBlockContent = (
       return;
     }
 
-    ref.current.innerHTML = getStyledRow(text, withImages);
+    ref.current.innerHTML = getStyledRow(escapeHTML(text), withImages);
   }, [ref, text, withImages]);
 };
 

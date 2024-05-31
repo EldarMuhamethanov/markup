@@ -34,7 +34,6 @@ const importItems: MenuProps["items"] = [
 
 const RightPart: React.FC = observer(() => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [replaceFileOpened, setReplaceFileOpened] = useState(false);
   const contentState = selectedDocumentData.contentState;
   const { targetRef: pdfTargetRef } = useContext(PdfTargetContext);
 
@@ -55,7 +54,10 @@ const RightPart: React.FC = observer(() => {
         if (!pdfTargetRef.current) {
           return;
         }
-        const htmlDocument = createHTMLDocument(pdfTargetRef.current, fileName);
+        const htmlDocument = await createHTMLDocument(
+          pdfTargetRef.current,
+          fileName
+        );
         downloadAsFile(htmlDocument, `${fileName}.html`);
         break;
       }

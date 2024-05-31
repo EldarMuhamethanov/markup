@@ -32,13 +32,11 @@ const TableView: React.FC<TableGroup> = (props) => {
   );
 
   return (
-    <table style={{ borderSpacing: 0, borderCollapse: "collapse" }}>
+    <table>
       <thead>
         <tr>
           {normalizeArr(props.headers).map((header, index) => (
-            <th key={index} style={{ border: "1px solid #dddddd" }}>
-              {header}
-            </th>
+            <th key={index}>{header}</th>
           ))}
         </tr>
       </thead>

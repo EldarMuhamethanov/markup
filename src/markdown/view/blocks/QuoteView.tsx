@@ -12,20 +12,8 @@ const QuoteView: React.FC<QuoteGroup> = (props) => {
   useParseBlockContent(ref, contentText);
 
   return (
-    <blockquote
-      style={{
-        margin: 0,
-      }}
-    >
-      <p
-        ref={ref}
-        style={{
-          fontStyle: "italic",
-          padding: "10px 14px",
-          borderLeft: "3px solid #a0aabf",
-          margin: 0,
-        }}
-      ></p>
+    <blockquote>
+      <p ref={ref}></p>
     </blockquote>
   );
 };

@@ -24,7 +24,7 @@ const Markdown: React.FC<MarkdownProps> = ({ text }) => {
   }, [text]);
 
   return (
-    <div ref={targetRef as RefObject<HTMLDivElement>}>
+    <div ref={targetRef as RefObject<HTMLDivElement>} className={"markdown"}>
       {getGroups().map((group, index) => {
         const key = `${group.type}_${index}`;
         switch (group.type) {

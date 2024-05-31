@@ -10,6 +10,11 @@ import { toggleInlineStyle } from "../immutable/toggleInlineStyle";
 import { processCopy } from "../common/clipboard";
 import { SelectionState } from "../model/selection/SelectionState";
 import { ContentState } from "../model/content/ContentState";
+import { ParagraphType } from "../view/paragraphBlock/getParagraphType";
+import {
+  switchParagraphType,
+  SwitchParagraphType,
+} from "../immutable/switchParagraphType";
 
 class RichTextOperationHandler {
   private readonly _modifyFn: (mofidyFn: ModifyRichtextFn) => void;
@@ -101,6 +106,12 @@ class RichTextOperationHandler {
   toggleInlineStyle(style: ToggleInlineStyles) {
     this._modifyFn((contentState, selection) => {
       return toggleInlineStyle(contentState, selection, style);
+    });
+  }
+
+  switchBlocksStyles(paragraphType: SwitchParagraphType) {
+    this._modifyFn((contentState, selection) => {
+      return switchParagraphType(contentState, selection, paragraphType);
     });
   }
 }
