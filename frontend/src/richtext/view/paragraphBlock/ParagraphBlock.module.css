@@ -36,9 +36,10 @@
 .index {
   position: absolute;
   left: -35px;
-  top: 0;
+  top: 2px;
   z-index: 3;
   color: #333;
   width: 20px;
   text-align: end;
+  user-select: none;
 }

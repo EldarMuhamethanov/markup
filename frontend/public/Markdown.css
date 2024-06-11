@@ -45,6 +45,10 @@ pre {
   border-radius: 4px;
 }
 
+code {
+  white-space: pre-line;
+}
+
 blockquote {
   margin: 0;
 }

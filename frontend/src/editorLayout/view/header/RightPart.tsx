@@ -1,6 +1,6 @@
 import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Modal, Space } from "antd";
-import React, { useContext, useRef, useState } from "react";
+import { Button, Dropdown, MenuProps, Space } from "antd";
+import React, { useContext, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { documentsMenuModel, selectedDocumentData } from "../../model/AppModel";
 import { ContentState } from "../../../richtext/model/content/ContentState";
@@ -9,6 +9,7 @@ import { PdfTargetContext } from "../padConvertation/PdfTargetContext";
 import generatePDF, { Margin } from "react-to-pdf";
 import { createHTMLDocument } from "./createHTML";
 import { useInputFile } from "../../../core/file/useInputFile";
+import {getHtmlWithRemappedImages} from "./getHtmlWithRemappedImages";
 
 const exportItems: MenuProps["items"] = [
   {
@@ -65,12 +66,14 @@ const RightPart: React.FC = observer(() => {
         if (!pdfTargetRef.current) {
           return;
         }
+        const restoreUrlsFn = await getHtmlWithRemappedImages(pdfTargetRef.current)
         generatePDF(pdfTargetRef, {
           filename: `${fileName}.pdf`,
           page: {
-            margin: Margin.SMALL,
+            margin: Margin.MEDIUM,
+
           },
-        });
+        }).finally(restoreUrlsFn)
       }
     }
   };
