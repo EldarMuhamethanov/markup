@@ -1,15 +1,16 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Space } from "antd";
-import React, { useContext, useRef } from "react";
-import { observer } from "mobx-react-lite";
-import { documentsMenuModel, selectedDocumentData } from "../../model/AppModel";
-import { ContentState } from "../../../richtext/model/content/ContentState";
-import { downloadAsFile } from "../../../core/file/downloadFile";
-import { PdfTargetContext } from "../padConvertation/PdfTargetContext";
-import generatePDF, { Margin } from "react-to-pdf";
-import { createHTMLDocument } from "./createHTML";
-import { useInputFile } from "../../../core/file/useInputFile";
+import {DownOutlined} from "@ant-design/icons";
+import {Button, Dropdown, MenuProps, Space} from "antd";
+import React, {useContext, useRef, useState} from "react";
+import {observer} from "mobx-react-lite";
+import {documentsMenuModel, selectedDocumentData} from "../../model/AppModel";
+import {ContentState} from "../../../richtext/model/content/ContentState";
+import {downloadAsFile} from "../../../core/file/downloadFile";
+import {PdfTargetContext} from "../padConvertation/PdfTargetContext";
+import generatePDF, {Margin, Resolution} from "react-to-pdf";
+import {createHTMLDocument} from "./createHTML";
+import {useInputFile} from "../../../core/file/useInputFile";
 import {getHtmlWithRemappedImages} from "./getHtmlWithRemappedImages";
+import {GeneratePdfModalLoadingModal} from "./GeneratePdfModalLoadingModal";
 
 const exportItems: MenuProps["items"] = [
   {
@@ -37,6 +38,43 @@ const RightPart: React.FC = observer(() => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const contentState = selectedDocumentData.contentState;
   const { targetRef: pdfTargetRef } = useContext(PdfTargetContext);
+  const [generatePdfModalOpened, setGeneratePdfModalOpened] = useState(false);
+
+  const handleExportToMarkdown = (fileName: string) => {
+    const markdownText = contentState && ContentState.getText(contentState);
+    if (markdownText) {
+      downloadAsFile(markdownText, `${fileName}.md`);
+    }
+  }
+
+  const handleExportToHTML = async (fileName: string) => {
+    if (!pdfTargetRef.current) {
+      return;
+    }
+    const htmlDocument = await createHTMLDocument(
+        pdfTargetRef.current,
+        fileName
+    );
+    downloadAsFile(htmlDocument, `${fileName}.html`);
+  }
+
+  const handleExportToPDF = async (fileName: string) => {
+    if (!pdfTargetRef.current) {
+      return;
+    }
+    setGeneratePdfModalOpened(true)
+    const restoreUrlsFn = await getHtmlWithRemappedImages(pdfTargetRef.current)
+    await generatePDF(pdfTargetRef, {
+      filename: `${fileName}.pdf`,
+      page: {
+        margin: Margin.MEDIUM,
+
+      },
+      resolution: Resolution.MEDIUM,
+    })
+    restoreUrlsFn()
+    setGeneratePdfModalOpened(false)
+  }
 
   const handleExportMenuClick: MenuProps["onClick"] = async (e) => {
     const fileName = selectedDocumentData.fileName;
@@ -45,35 +83,15 @@ const RightPart: React.FC = observer(() => {
     }
     switch (e.key) {
       case "markdown": {
-        const markdownText = contentState && ContentState.getText(contentState);
-        if (markdownText) {
-          downloadAsFile(markdownText, `${fileName}.md`);
-        }
+        handleExportToMarkdown(fileName)
         break;
       }
       case "html": {
-        if (!pdfTargetRef.current) {
-          return;
-        }
-        const htmlDocument = await createHTMLDocument(
-          pdfTargetRef.current,
-          fileName
-        );
-        downloadAsFile(htmlDocument, `${fileName}.html`);
+        await handleExportToHTML(fileName)
         break;
       }
       case "pdf": {
-        if (!pdfTargetRef.current) {
-          return;
-        }
-        const restoreUrlsFn = await getHtmlWithRemappedImages(pdfTargetRef.current)
-        generatePDF(pdfTargetRef, {
-          filename: `${fileName}.pdf`,
-          page: {
-            margin: Margin.MEDIUM,
-
-          },
-        }).finally(restoreUrlsFn)
+        await handleExportToPDF(fileName)
       }
     }
   };
@@ -135,6 +153,9 @@ const RightPart: React.FC = observer(() => {
           </Space>
         </Button>
       </Dropdown>
+      <GeneratePdfModalLoadingModal
+        isOpen={generatePdfModalOpened}
+      />
     </Space>
   );
 });
