@@ -7,7 +7,7 @@ import { ContentState } from "../../../richtext/model/content/ContentState";
 import { downloadAsFile } from "../../../core/file/downloadFile";
 import { PdfTargetContext } from "../padConvertation/PdfTargetContext";
 import generatePDF, { Margin, Resolution } from "react-to-pdf";
-import { createHTMLDocument } from "./createHTML";
+import { createHTMLDocument } from "../../../backend/createHTML";
 import { useInputFile } from "../../../core/file/useInputFile";
 import { getHtmlWithRemappedImages } from "./getHtmlWithRemappedImages";
 import { GeneratePdfModalLoadingModal } from "./GeneratePdfModalLoadingModal";
@@ -52,7 +52,7 @@ const RightPart: React.FC = observer(() => {
       return;
     }
     const htmlDocument = await createHTMLDocument(
-      pdfTargetRef.current,
+      pdfTargetRef.current.outerHTML,
       fileName
     );
     downloadAsFile(htmlDocument, `${fileName}.html`);

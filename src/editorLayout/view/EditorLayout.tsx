@@ -29,8 +29,6 @@ const Modals: React.FC = () => {
 };
 
 const EditorLayout: React.FC = () => {
-  const [showSidebar, setShowSidebar] = useState(true);
-
   useSingleLayoutEffect(() => {
     enablePatches();
     filesDataModel.init();
@@ -41,9 +39,9 @@ const EditorLayout: React.FC = () => {
   return (
     <PdfTargetContext.Provider value={{ targetRef: { current: null } }}>
       <Layout className={styles.mainLayout}>
-        <Header onMenuButtonClick={() => setShowSidebar(!showSidebar)} />
+        <Header />
         <Layout hasSider={true} className={styles.contentRow}>
-          <Sidebar show={showSidebar} />
+          <Sidebar />
           <Content>
             <MarkdownEditorLayout />
           </Content>

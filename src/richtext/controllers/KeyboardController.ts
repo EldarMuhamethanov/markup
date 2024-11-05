@@ -16,7 +16,7 @@ function useKeyboardController(
 
   const _onKeydown = useCallback((e: Event) => {
     const keyboardEvent = e as KeyboardEvent;
-    const withCtrl = keyboardEvent.ctrlKey;
+    const withCtrl = keyboardEvent.ctrlKey || keyboardEvent.metaKey;
     const withShift = keyboardEvent.shiftKey;
     const code = keyboardEvent.code;
 

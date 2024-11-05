@@ -1,8 +1,10 @@
+"use server";
+
 export const createHTMLDocument = async (
-  content: HTMLDivElement,
+  contentHTML: string,
   title: string
 ) => {
-  const styles = await fetch("/Markdown.css", {
+  const styles = await fetch("http://localhost:3000/Markdown.css", {
     headers: {
       Accept: "text/css,*/*",
     },
@@ -23,7 +25,7 @@ export const createHTMLDocument = async (
 		</style>
 	</head>
 	<body>
-		${content.outerHTML}
+		${contentHTML}
 	</body>
 </html>	
 `;

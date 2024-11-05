@@ -7,11 +7,7 @@
     "type": "git",
     "url": ""
   },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": ""
-  },
+  "author": "EldarMuhamethanov",
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -29,12 +25,12 @@
   },
   "dependencies": {
     "@types/uuid": "^10.0.0",
-    "antd": "5.21.0",
+    "antd": "5.21.6",
     "axios": "^1.7.7",
     "immer": "^10.0.2",
     "mobx": "^6.10.0",
     "mobx-react-lite": "^4.0.3",
-    "next": "latest",
+    "next": "14.2.14",
     "react": "^18",
     "react-dom": "^18",
     "react-to-pdf": "^1.0.1",

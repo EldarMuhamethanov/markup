@@ -1,26 +1,29 @@
 import styles from "./Header.module.css";
 import React from "react";
 import { Header as AntHeader } from "antd/es/layout/layout";
-import { MenuOutlined } from "@ant-design/icons";
-import {Button, Image} from "antd";
+import { Flex, Typography } from "antd";
 import { RightPart } from "./RightPart";
+import Image from "next/image";
 
-interface HeaderProps {
-  onMenuButtonClick: () => void;
-}
-
-const Header = ({ onMenuButtonClick }: HeaderProps) => {
+const Header = () => {
   return (
     <AntHeader className={styles.header}>
-      <div className={styles.leftPart}>
-        <Button
-          type={"primary"}
-          icon={<MenuOutlined />}
-          size={"middle"}
-          onClick={onMenuButtonClick}
-        />
-        <Image src="/MarkupLogo.png" preview={false} className={styles.logo} alt="logo" />
-      </div>
+      <Flex
+        gap={10}
+        style={{ height: "100%", position: "relative" }}
+        align="center"
+      >
+        <Flex align="end">
+          <Image src="/NewLogo.png" width={80} height={50} alt="logo" />
+          <Typography.Title
+            level={3}
+            style={{ marginBottom: 0 }}
+            className={styles.logoTitle}
+          >
+            arkUp
+          </Typography.Title>
+        </Flex>
+      </Flex>
       <RightPart />
     </AntHeader>
   );
