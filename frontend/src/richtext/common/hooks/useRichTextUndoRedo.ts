@@ -8,7 +8,7 @@ function useRichTextUndoRedo(
 ) {
   useEventHandler("keydown", editorRef, (e: Event) => {
     const keyboardEvent = e as KeyboardEvent;
-    if (keyboardEvent.ctrlKey) {
+    if (keyboardEvent.ctrlKey || keyboardEvent.metaKey) {
       if (keyboardEvent.code === "KeyZ") {
         keyboardEvent.preventDefault();
         undo();

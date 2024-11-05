@@ -57,7 +57,9 @@ function isPrintableKey(e: KeyboardEvent) {
   return (
     e.key.length === 1 &&
     !checkPrintableKeys.some(({ code, withCtrl }) => {
-      return code === e.code && withCtrl === e.ctrlKey;
+      return (
+        code === e.code && (withCtrl === e.ctrlKey || withCtrl === e.metaKey)
+      );
     })
   );
 }
