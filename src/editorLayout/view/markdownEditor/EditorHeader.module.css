@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  border: 1px solid #e8e8e8;
+}
+
+.title {
+  line-height: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #a0aabf;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-left: 16px;
+  padding-right: 16px;
+}

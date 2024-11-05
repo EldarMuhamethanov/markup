@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="39681fd4-c58e-4271-bde1-d5f347bec729" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/app-build-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/build-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/.rscinfo" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development-fallback/0.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development-fallback/index.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/0.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/1.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/2.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/3.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/4.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/5.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/6.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/7.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/8.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/9.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/index.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/client-development/index.pack.gz.old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/0.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/1.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/2.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/3.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/4.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/5.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/6.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/7.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/8.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/index.pack.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/cache/webpack/server-development/index.pack.gz.old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/react-loadable-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/app-paths-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/app/page.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/app/page_client-reference-manifest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/interception-route-rewrite-manifest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/middleware-build-manifest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/middleware-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/middleware-react-loadable-manifest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/next-font-manifest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/next-font-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/pages-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/server-reference-manifest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/server-reference-manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/server/webpack-runtime.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/static/media/4473ecc91f70f139-s.p.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/static/media/463dafcda517f24f-s.p.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/trace" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/types/app/layout.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/types/app/page.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/types/cache-life.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.next/types/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/next-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/ExportApi.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/GeistMonoVF.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/GeistVF.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/backend/convertImages.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/hooks/useSingleLayoutEffect.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/jest.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/normalize.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/EmptyState.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/EmptyState.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/Markdown.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/Markdown.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/MarkupLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/MarkupLogo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/manifest.webmanifest" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.webmanifest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/ExportApi.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/FilesApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/FilesApi.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/credentials.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/google-drive/initClient.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/App.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/common/icons/CodeText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/icons/CodeText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/common/icons/HightlightText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/icons/HightlightText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/common/icons/SubscriptText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/icons/SubscriptText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/common/icons/SuperscriptText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/icons/SuperscriptText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/array/array.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/array/array.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/checkNever.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/checkNever.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/file/downloadFile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/file/downloadFile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/file/useInputFile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/file/useInputFile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/getValueByCheckedKey.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/getValueByCheckedKey.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/hooks/addHookDeps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/hooks/addHookDeps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/hooks/useEventHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/hooks/useEventHandler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/hooks/useHtmlElementEventHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/hooks/useHtmlElementEventHandler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/hooks/useLatestRef.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/hooks/useLatestRef.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/hooks/useResizeObserver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/hooks/useResizeObserver.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/html/escapeHTML.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/html/escapeHTML.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/http/HttpStatus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/http/HttpStatus.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/isEqual.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/isEqual.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/localStorage/localStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/localStorage/localStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/string/string.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/string/string.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/string/string.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/string/string.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/styles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/styles/StyledComponent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/styles/StyledComponent.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/styles/getStylesWithMods.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/styles/getStylesWithMods.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/styles/joinClassNames.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/styles/joinClassNames.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/core/verify.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/verify.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/AppModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/AppModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/documents/DocumentsMenuModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/documents/DocumentsMenuModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/documents/SelectedDocumentData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/documents/SelectedDocumentData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/documents/getDocumentData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/documents/getDocumentData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/files/FileData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/files/FileData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/files/FilesDataModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/files/FilesDataModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/filesActionsModals/CreateFileModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/filesActionsModals/CreateFileModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/filesActionsModals/CreateFolderModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/filesActionsModals/CreateFolderModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/model/filesActionsModals/RenameDocumentModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/model/filesActionsModals/RenameDocumentModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/EditorLayout.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/EditorLayout.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/EditorLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/EditorLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/filesActionModals/CreateDocumentModal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/filesActionModals/CreateDocumentModal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/filesActionModals/CreateDocumentModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/filesActionModals/CreateDocumentModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/filesActionModals/RenameDocumentModal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/filesActionModals/RenameDocumentModal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/filesActionModals/RenameDocumentModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/filesActionModals/RenameDocumentModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/header/GeneratePdfModalLoadingModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/header/GeneratePdfModalLoadingModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/header/Header.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/header/RightPart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/header/RightPart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/header/createHTML.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/header/createHTML.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/header/getHtmlWithRemappedImages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/header/getHtmlWithRemappedImages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/EditorHeader.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/EditorHeader.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/EditorHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/EditorHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/EditorWrapper.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/EditorWrapper.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/EditorWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/EditorWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/EmptyLayout.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/EmptyLayout.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/EmptyLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/EmptyLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/MarkdownEditorLayout.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/MarkdownEditorLayout.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/markdownEditor/MarkdownEditorLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/markdownEditor/MarkdownEditorLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/padConvertation/PdfTargetContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/padConvertation/PdfTargetContext.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/sidebar/DocumentsMenu.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/sidebar/DocumentsMenu.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/sidebar/DocumentsMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/sidebar/DocumentsMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/sidebar/Sidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/sidebar/Sidebar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/sidebar/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/toolbar/Toolbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/toolbar/Toolbar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/toolbar/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/toolbar/Toolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/editorLayout/view/toolbar/ToolbarPortal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/editorLayout/view/toolbar/ToolbarPortal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/infrastructure/tests/setup-tests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/tests/setup-tests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/common/getStyledRow.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/common/getStyledRow.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/common/groupBlocks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/common/groupBlocks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/common/hooks/useParseBlockContent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/common/hooks/useParseBlockContent.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/common/parseRow.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/common/parseRow.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/common/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/common/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/DefaultGroups.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/DefaultGroups.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/ListGroups.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/ListGroups.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/Markdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/Markdown.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/blocks/CodeBlockView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/blocks/CodeBlockView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/blocks/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/blocks/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/blocks/ListItemView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/blocks/ListItemView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/blocks/PlainTextView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/blocks/PlainTextView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/blocks/QuoteView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/blocks/QuoteView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/markdown/view/blocks/TableView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/markdown/view/blocks/TableView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/common/clipboard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/common/clipboard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/common/hooks/useClipboardEventsHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/common/hooks/useClipboardEventsHandlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/common/hooks/useRichTextUndoRedo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/common/hooks/useRichTextUndoRedo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/common/hooks/useRichtextKeyboardHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/common/hooks/useRichtextKeyboardHandlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/common/hooks/useRichtextKeyboardStylesHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/common/hooks/useRichtextKeyboardStylesHandlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/common/hooks/useRichtextState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/common/hooks/useRichtextState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/controllers/KeyboardController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/controllers/KeyboardController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/RichtextModifiers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/RichtextModifiers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/insertFragmentIntoContentState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/insertFragmentIntoContentState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/insertTextToCollapsedRange.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/insertTextToCollapsedRange.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/onBackspace.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/onBackspace.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/onDelete.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/onDelete.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/onEnter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/onEnter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/removeRangeFromContentState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/removeRangeFromContentState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/splitParagraph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/splitParagraph.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/switchParagraphType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/switchParagraphType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/immutable/toggleInlineStyle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/immutable/toggleInlineStyle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/model/History.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/model/History.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/model/InlineStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/model/InlineStyles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/model/content/ContentState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/model/content/ContentState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/model/content/OrderedMap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/model/content/OrderedMap.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/model/content/ParagraphData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/model/content/ParagraphData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/model/selection/SelectionState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/model/selection/SelectionState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/richtextOperation/ModifyRichtextFn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/richtextOperation/ModifyRichtextFn.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/richtextOperation/RichTextOperationHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/richtextOperation/RichTextOperationHandler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/selection/getEditorSelection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/selection/getEditorSelection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/selection/setEditorSelection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/selection/setEditorSelection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/view/RichtextBlockRenderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/view/RichtextBlockRenderer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/view/RichtextEditor.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/view/RichtextEditor.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/view/RichtextEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/view/RichtextEditor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/view/paragraphBlock/ParagraphBlock.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/view/paragraphBlock/ParagraphBlock.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/view/paragraphBlock/ParagraphBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/view/paragraphBlock/ParagraphBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/view/paragraphBlock/getParagraphType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/view/paragraphBlock/getParagraphType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/richtext/view/paragraphBlock/inlineStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/richtext/view/paragraphBlock/inlineStyles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/vite-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/vite.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2oQnMQpEuciwdoCiATi4kI7X68P" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/e.mukhametkhanov/Documents/markup",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "ts.external.directory.path": "/Users/e.mukhametkhanov/Documents/markup/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39681fd4-c58e-4271-bde1-d5f347bec729" name="Changes" comment="" />
+      <created>1730810618738</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730810618738</updated>
+      <workItem from="1730810619748" duration="2153000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

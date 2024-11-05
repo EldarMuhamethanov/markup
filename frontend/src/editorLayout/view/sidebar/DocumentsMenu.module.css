@@ -1,9 +1,0 @@
-.documentsMenuWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.toolbar {
-  align-self: center;
-}

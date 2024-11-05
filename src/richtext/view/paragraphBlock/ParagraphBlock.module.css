@@ -1,0 +1,45 @@
+.blockWrapper {
+  width: 100%;
+}
+
+.blockHeading {
+  color: rgb(12, 7, 255);
+}
+
+.blockListItem {
+  color: rgb(185, 6, 144);
+}
+
+.blockQuote {
+  color: rgb(3, 106, 7);
+}
+
+.blockCode {
+  color: rgb(60, 76, 114);
+}
+
+.blockText {
+  color: rgb(0, 0, 0);
+}
+
+.paragraph {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.index {
+  position: absolute;
+  left: -35px;
+  top: 2px;
+  z-index: 3;
+  color: #333;
+  width: 20px;
+  text-align: end;
+  user-select: none;
+}
