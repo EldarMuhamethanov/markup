@@ -17,6 +17,7 @@ import {
   selectedDocumentData,
 } from "../model/AppModel";
 import { enablePatches } from "immer";
+import "../../../public/Markdown.css";
 
 const Modals: React.FC = () => {
   return (
