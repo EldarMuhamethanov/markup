@@ -38,9 +38,12 @@ type PlainTextBlock = {
   text: string;
 };
 
+type TableAlignment = "left" | "center" | "right" | "none";
+
 type TableHeaderBlock = {
   type: "tableHeader";
   headers: string[];
+  alignments: TableAlignment[];
 };
 
 type TableRowBlock = {
@@ -95,6 +98,7 @@ type QuoteGroup = {
 type TableGroup = {
   type: "table";
   headers: string[];
+  alignments: TableAlignment[];
   rows: string[][];
 };
 

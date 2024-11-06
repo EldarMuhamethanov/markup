@@ -3,6 +3,7 @@ import {
   HeaderBlock,
   OrderedListItemBlock,
   QuoteBlock,
+  TableAlignment,
   TableBlock,
   TableHeaderBlock,
   UnorderedListItemBlock,
@@ -62,46 +63,47 @@ const checkCodeOpenClose = (row: string): boolean => {
   return !!row.match(/^```.*\s*$/);
 };
 
-const checkHeaderSeparator = (row: string, columnsCount: number): boolean => {
-  const cells = row
-    .split("|")
-    .map((cell) => cell.trim())
-    .filter((cell) => !!cell);
-  if (!cells.every((cell) => cell.match(/^-+$/))) {
-    return false;
-  }
-
-  return cells.length <= columnsCount;
+const parseTableAlignment = (separator: string): TableAlignment => {
+  const trimmed = separator.trim();
+  if (trimmed.startsWith(':') && trimmed.endsWith(':')) return 'center';
+  if (trimmed.endsWith(':')) return 'right';
+  if (trimmed.startsWith(':')) return 'left';
+  return 'none';
 };
 
 const checkRow = (
   row: string,
-  type: "tableHeader" | "tableRow"
-): TableBlock | null => {
-  const match = row.match(/\|?\s*(\w+)\s*\|/);
+  type: "tableHeader" | "tableRow" | "separator"
+): (TableBlock | { type: "separator"; alignments: TableAlignment[] }) | null => {
+  const isValidTableRow = row.trim().startsWith('|') || row.trim().endsWith('|');
+  if (!isValidTableRow) return null;
 
-  if (!match) {
-    return null;
-  }
+  const cells = row
+    .split('|')
+    .map(cell => cell.trim())
+    .filter(cell => cell !== '');
 
-  const cells = row.split("|").map((cell) => cell.trim());
+  if (cells.length === 0) return null;
 
-  if (!cells[0]) {
-    cells.splice(0, 1);
-  }
-  if (!cells[cells.length - 1]) {
-    cells.splice(cells.length - 1, 1);
+  if (type === "separator") {
+    if (!cells.every(cell => cell.match(/^:?-+:?$/))) return null;
+    return {
+      type: "separator",
+      alignments: cells.map(parseTableAlignment)
+    };
   }
 
   if (type === "tableHeader") {
     return {
-      type,
+      type: "tableHeader",
       headers: cells,
+      alignments: [] // Будет заполнено позже
     };
   }
+
   return {
-    type,
-    cells,
+    type: "tableRow",
+    cells
   };
 };
 
@@ -111,71 +113,107 @@ const checkHorizontalRule = (row: string): boolean => {
 
 export const getRowParser = () => {
   let codeBlockOpened = false;
-  let headerRowFinded = false;
-  let tableContentStarted = false;
-  let headerColumnsCount: number | null = null;
+  let tableState: {
+    headerRow: TableHeaderBlock | null;
+    alignments: TableAlignment[] | null;
+    isInTable: boolean;
+  } = {
+    headerRow: null,
+    alignments: null,
+    isInTable: false
+  };
 
-  const resetHeaderData = () => {
-    headerRowFinded = false;
-    tableContentStarted = false;
-    headerColumnsCount = null;
+  const resetTableState = () => {
+    tableState = {
+      headerRow: null,
+      alignments: null,
+      isInTable: false
+    };
   };
 
   return (row: string): BlockData | null => {
     if (checkHorizontalRule(row)) {
-      resetHeaderData();
+      resetTableState();
       return {
         type: "horizontalRule",
       };
     }
+
     if (checkCodeOpenClose(row) && !codeBlockOpened) {
       codeBlockOpened = true;
-      resetHeaderData();
+      resetTableState();
       return {
         type: "codeOpen",
       };
     }
+
     if (checkCodeOpenClose(row) && codeBlockOpened) {
       codeBlockOpened = false;
       return {
         type: "codeClose",
       };
     }
+
     if (codeBlockOpened) {
       return {
         type: "codeRow",
         text: row,
       };
     }
+
     const blockParseResult =
       checkHeader(row) || checkQuote(row) || checkListItem(row);
 
     if (blockParseResult) {
-      resetHeaderData();
+      resetTableState();
       return blockParseResult;
     }
 
-    const checkHeaderRow = checkRow(row, "tableHeader");
-    if (checkHeaderRow && !headerRowFinded) {
-      headerRowFinded = true;
-      headerColumnsCount = (checkHeaderRow as TableHeaderBlock).headers.length;
-      return checkHeaderRow;
+    // Обработка таблицы
+    if (!tableState.isInTable) {
+      const headerRow = checkRow(row, "tableHeader");
+      if (headerRow && headerRow.type === "tableHeader") {
+        tableState.headerRow = headerRow;
+        tableState.isInTable = true;
+        return headerRow;
+      }
+      return {
+        type: "plainText",
+        text: row
+      };
     }
-    if (
-      headerRowFinded &&
-      headerColumnsCount &&
-      checkHeaderSeparator(row, headerColumnsCount)
-    ) {
-      tableContentStarted = true;
-      return null;
+
+    if (tableState.isInTable && !tableState.alignments) {
+      const separatorRow = checkRow(row, "separator");
+      if (separatorRow && 'alignments' in separatorRow) {
+        tableState.alignments = separatorRow.alignments;
+        if (tableState.headerRow) {
+          tableState.headerRow.alignments = separatorRow.alignments;
+        }
+        return null;
+      }
+      resetTableState();
+      return {
+        type: "plainText",
+        text: row
+      };
     }
-    if (tableContentStarted) {
-      return checkRow(row, "tableRow");
+
+    if (tableState.isInTable) {
+      const tableRow = checkRow(row, "tableRow");
+      if (tableRow && tableRow.type === "tableRow") {
+        return tableRow;
+      }
+      resetTableState();
+      return {
+        type: "plainText",
+        text: row
+      };
     }
 
     return {
       type: "plainText",
-      text: row,
+      text: row
     };
   };
 };

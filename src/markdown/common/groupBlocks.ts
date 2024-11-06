@@ -4,7 +4,7 @@ import {
   GroupBlockData,
   OrderedListItemBlock,
   QuoteBlock,
-  TableGroup,
+  TableHeaderBlock,
   UnorderedListItemBlock,
 } from "./types";
 
@@ -14,7 +14,10 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
   let currentUnorderedList: UnorderedListItemBlock[] | null = null;
   let currentOrderedList: OrderedListItemBlock[] | null = null;
   let quoteList: QuoteBlock[] | null = null;
-  let tableGroup: TableGroup | null = null;
+  let currentTableState: {
+    headerBlock: TableHeaderBlock | null;
+    rows: string[][];
+  } | null = null;
 
   const appendCodeGroup = () => {
     if (currentCodeGroup) {
@@ -57,10 +60,15 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
   };
 
   const appendTableGroup = () => {
-    if (tableGroup) {
-      groups.push(tableGroup);
-      tableGroup = null;
+    if (currentTableState?.headerBlock) {
+      groups.push({
+        type: "table",
+        headers: currentTableState.headerBlock.headers,
+        alignments: currentTableState.headerBlock.alignments,
+        rows: currentTableState.rows
+      });
     }
+    currentTableState = null;
   };
 
   blocks.forEach((block) => {
@@ -102,19 +110,15 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
       return;
     }
     if (block.type === "tableHeader") {
-      if (!tableGroup) {
-        tableGroup = {
-          type: "table",
-          headers: block.headers,
-          rows: [],
-        };
-      }
+      appendTableGroup();
+      currentTableState = {
+        headerBlock: block,
+        rows: []
+      };
       return;
     }
-    if (block.type === "tableRow") {
-      if (tableGroup) {
-        tableGroup.rows.push(block.cells);
-      }
+    if (block.type === "tableRow" && currentTableState) {
+      currentTableState.rows.push(block.cells);
       return;
     }
 
