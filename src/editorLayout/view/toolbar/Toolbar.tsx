@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { RichTextOperationHandler } from "../../../richtext/richtextOperation/RichTextOperationHandler";
 import styles from "./Toolbar.module.css";
-import { Button, Space, Tooltip, Dropdown, MenuProps } from "antd";
+import { Button, Space, Tooltip, Dropdown, MenuProps, Flex } from "antd";
 import {
   BoldOutlined,
   DownOutlined,
@@ -139,22 +139,24 @@ const Toolbar: React.FC<IToolbarProps> = ({ operationHandler }) => {
   return (
     <div className={styles.toolbar}>
       <div className={styles.toolbarContent}>
-        <Space size="small">
-          <Dropdown
-            menu={{ items: headingItems, onClick: handleHeadingSelect }}
-            dropdownRender={(element) => (
-              <div onMouseDown={(e) => e.preventDefault()}>{element}</div>
-            )}
-          >
-            <Button>
-              <Space>
-                <HeadingIcon level={1} />
-                <DownOutlined />
-              </Space>
-            </Button>
-          </Dropdown>
-          <Divider />
-          <Space>
+        <Flex gap={5} wrap align="center">
+          <Flex gap={5} align="center">
+            <Dropdown
+              menu={{ items: headingItems, onClick: handleHeadingSelect }}
+              dropdownRender={(element) => (
+                <div onMouseDown={(e) => e.preventDefault()}>{element}</div>
+              )}
+            >
+              <Button>
+                <Space>
+                  <HeadingIcon level={1} />
+                  <DownOutlined />
+                </Space>
+              </Button>
+            </Dropdown>
+            <Divider />
+          </Flex>
+          <Flex gap={5} align="center">
             {inlineStyles.map((inlineStyle) => (
               <Tooltip
                 key={inlineStyle.style}
@@ -172,9 +174,9 @@ const Toolbar: React.FC<IToolbarProps> = ({ operationHandler }) => {
                 />
               </Tooltip>
             ))}
-          </Space>
-          <Divider />
-          <Space>
+            <Divider />
+          </Flex>
+          <Flex gap={5}>
             {paragraphTypes.map((paragraphType) => (
               <Tooltip
                 key={paragraphType.type}
@@ -192,8 +194,8 @@ const Toolbar: React.FC<IToolbarProps> = ({ operationHandler }) => {
                 />
               </Tooltip>
             ))}
-          </Space>
-        </Space>
+          </Flex>
+        </Flex>
       </div>
     </div>
   );

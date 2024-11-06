@@ -12,6 +12,23 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  padding-bottom: 4px;
+}
+
+.toolbarContent::-webkit-scrollbar {
+  height: 4px;
+}
+
+.toolbarContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toolbarContent::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
 }
 
 .toolbarHideButton {
