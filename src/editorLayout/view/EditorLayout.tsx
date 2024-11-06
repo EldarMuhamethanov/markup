@@ -15,7 +15,6 @@ import {
   selectedDocumentData,
 } from "../model/AppModel";
 import { enablePatches } from "immer";
-import "../../../public/Markdown.css";
 import { editorLayoutModel } from "../model/AppModel";
 
 const EditorLayout: React.FC = () => {

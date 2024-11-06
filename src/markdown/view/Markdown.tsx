@@ -8,6 +8,7 @@ import { ListGroups } from "./ListGroups";
 import { QuoteView } from "./blocks/QuoteView";
 import { TableView } from "./blocks/TableView";
 import { PdfTargetContext } from "../../editorLayout/view/padConvertation/PdfTargetContext";
+import "./Markdown.css";
 
 type MarkdownProps = {
   text: string;
