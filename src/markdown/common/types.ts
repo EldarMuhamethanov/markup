@@ -129,4 +129,5 @@ export type {
   TableBlock,
   TableRowBlock,
   HorizontalRuleBlock,
+  TableAlignment,
 };

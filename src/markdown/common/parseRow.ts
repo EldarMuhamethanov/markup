@@ -22,11 +22,11 @@ const checkHeader = (row: string): HeaderBlock | null => {
 };
 
 const checkQuote = (row: string): QuoteBlock | null => {
-  const match = row.match(/^>\s+(.+)/);
-  if (match && match[1]) {
+  const match = row.match(/^>\s*(.*)$/);
+  if (match) {
     return {
       type: "quote",
-      text: match[1],
+      text: match[1] || "",
     };
   }
   return null;
@@ -37,7 +37,7 @@ const checkListItem = (
 ): UnorderedListItemBlock | OrderedListItemBlock | null => {
   const indentMatch = row.match(/^(\s*)/);
   const level = indentMatch ? Math.floor(indentMatch[1].length / 2) : 0;
-  
+
   const unorderedMatch = row.match(/^(\s*)-\s+(.+)/);
   if (unorderedMatch && unorderedMatch[2]) {
     return {
@@ -65,31 +65,34 @@ const checkCodeOpenClose = (row: string): boolean => {
 
 const parseTableAlignment = (separator: string): TableAlignment => {
   const trimmed = separator.trim();
-  if (trimmed.startsWith(':') && trimmed.endsWith(':')) return 'center';
-  if (trimmed.endsWith(':')) return 'right';
-  if (trimmed.startsWith(':')) return 'left';
-  return 'none';
+  if (trimmed.startsWith(":") && trimmed.endsWith(":")) return "center";
+  if (trimmed.endsWith(":")) return "right";
+  if (trimmed.startsWith(":")) return "left";
+  return "none";
 };
 
 const checkRow = (
   row: string,
   type: "tableHeader" | "tableRow" | "separator"
-): (TableBlock | { type: "separator"; alignments: TableAlignment[] }) | null => {
-  const isValidTableRow = row.trim().startsWith('|') || row.trim().endsWith('|');
+):
+  | (TableBlock | { type: "separator"; alignments: TableAlignment[] })
+  | null => {
+  const isValidTableRow =
+    row.trim().startsWith("|") || row.trim().endsWith("|");
   if (!isValidTableRow) return null;
 
   const cells = row
-    .split('|')
-    .map(cell => cell.trim())
-    .filter(cell => cell !== '');
+    .split("|")
+    .map((cell) => cell.trim())
+    .filter((cell) => cell !== "");
 
   if (cells.length === 0) return null;
 
   if (type === "separator") {
-    if (!cells.every(cell => cell.match(/^:?-+:?$/))) return null;
+    if (!cells.every((cell) => cell.match(/^:?-+:?$/))) return null;
     return {
       type: "separator",
-      alignments: cells.map(parseTableAlignment)
+      alignments: cells.map(parseTableAlignment),
     };
   }
 
@@ -97,13 +100,13 @@ const checkRow = (
     return {
       type: "tableHeader",
       headers: cells,
-      alignments: [] // Будет заполнено позже
+      alignments: [], // Будет заполнено позже
     };
   }
 
   return {
     type: "tableRow",
-    cells
+    cells,
   };
 };
 
@@ -120,14 +123,14 @@ export const getRowParser = () => {
   } = {
     headerRow: null,
     alignments: null,
-    isInTable: false
+    isInTable: false,
   };
 
   const resetTableState = () => {
     tableState = {
       headerRow: null,
       alignments: null,
-      isInTable: false
+      isInTable: false,
     };
   };
 
@@ -179,13 +182,13 @@ export const getRowParser = () => {
       }
       return {
         type: "plainText",
-        text: row
+        text: row,
       };
     }
 
     if (tableState.isInTable && !tableState.alignments) {
       const separatorRow = checkRow(row, "separator");
-      if (separatorRow && 'alignments' in separatorRow) {
+      if (separatorRow && "alignments" in separatorRow) {
         tableState.alignments = separatorRow.alignments;
         if (tableState.headerRow) {
           tableState.headerRow.alignments = separatorRow.alignments;
@@ -195,7 +198,7 @@ export const getRowParser = () => {
       resetTableState();
       return {
         type: "plainText",
-        text: row
+        text: row,
       };
     }
 
@@ -207,13 +210,13 @@ export const getRowParser = () => {
       resetTableState();
       return {
         type: "plainText",
-        text: row
+        text: row,
       };
     }
 
     return {
       type: "plainText",
-      text: row
+      text: row,
     };
   };
 };

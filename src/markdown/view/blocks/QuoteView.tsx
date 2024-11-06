@@ -6,7 +6,7 @@ const QuoteView: React.FC<QuoteGroup> = (props) => {
   const ref = useRef<HTMLParagraphElement | null>(null);
 
   const contentText = useMemo(() => {
-    return props.blocks.map((block) => block.text).join("</br>");
+    return props.blocks.map((block) => block.text).join("\n");
   }, [props.blocks]);
 
   useParseBlockContent(ref, contentText);

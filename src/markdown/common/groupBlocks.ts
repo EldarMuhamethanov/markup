@@ -53,7 +53,10 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
     if (quoteList) {
       groups.push({
         type: "quote",
-        blocks: quoteList,
+        blocks: quoteList.filter((block, index) => 
+          block.text !== "" || 
+          (index < quoteList.length - 1 && quoteList[index + 1].text !== "")
+        ),
       });
       quoteList = null;
     }
@@ -105,6 +108,9 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
     if (block.type === "quote") {
       if (!quoteList) {
         quoteList = [];
+      }
+      if (quoteList.length > 0 && quoteList[quoteList.length - 1].text !== "") {
+        block.text = block.text;
       }
       quoteList.push(block);
       return;
