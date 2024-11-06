@@ -6,25 +6,58 @@
 }
 
 .editorsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  display: flex;
+  gap: 10px;
   height: 100%;
+  position: relative;
 }
 
 .editorSection {
-  min-width: 0;
   height: 100%;
   overflow: auto;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: width 0.1s ease;
+}
+
+.resizer {
+  width: 8px;
+  background: transparent;
+  cursor: col-resize;
+  position: relative;
+  margin: 0 -4px;
+  z-index: 10;
+}
+
+.resizer::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+  transform: translateX(-50%);
+  transition: background 0.2s;
+}
+
+.resizer:hover::after,
+.resizer:active::after {
+  background: #94a3b8;
 }
 
 @media (max-width: 768px) {
   .editorsContainer {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    flex-direction: column;
+  }
+
+  .editorSection {
+    width: 100% !important;
+  }
+
+  .resizer {
+    display: none;
   }
 
   .container {
