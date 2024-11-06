@@ -16,6 +16,7 @@ import {
 } from "../model/AppModel";
 import { enablePatches } from "immer";
 import "../../../public/Markdown.css";
+import { editorLayoutModel } from "../model/AppModel";
 
 const EditorLayout: React.FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -25,6 +26,7 @@ const EditorLayout: React.FC = () => {
     filesDataModel.init();
     selectedDocumentData.init();
     documentsMenuModel.init();
+    editorLayoutModel.init();
   });
 
   return (
