@@ -41,7 +41,9 @@ export const DocumentsMenu: React.FC = observer(() => {
     }
   };
 
-  const renderDocumentItems = (documents: DocumentData[]): any[] => {
+  const renderDocumentItems = (
+    documents: DocumentData[]
+  ): MenuProps["items"] => {
     return documents
       .filter((doc) =>
         doc.name.toLowerCase().includes(searchQuery.toLowerCase())

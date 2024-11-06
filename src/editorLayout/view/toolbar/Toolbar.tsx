@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { RichTextOperationHandler } from "../../../richtext/richtextOperation/RichTextOperationHandler";
 import styles from "./Toolbar.module.css";
 import { Button, Space, Tooltip, Dropdown, MenuProps } from "antd";

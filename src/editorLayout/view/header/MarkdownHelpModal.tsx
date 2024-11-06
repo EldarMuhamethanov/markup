@@ -100,7 +100,7 @@ const MarkdownHelpModal: React.FC<MarkdownHelpModalProps> = ({ isOpen, onClose }
         <section>
           <Title level={4}>Цитаты и код</Title>
           <div className={styles.example}>
-            <Text>> Цитата</Text>
+            <Text>&gt; Цитата</Text>
             <Text type="secondary">→ Блок цитаты</Text>
           </div>
           <div className={styles.example}>
