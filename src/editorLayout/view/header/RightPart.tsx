@@ -2,8 +2,13 @@ import {
   DownOutlined,
   QuestionCircleOutlined,
   GithubOutlined,
+  ExportOutlined,
+  ImportOutlined,
+  FileMarkdownOutlined,
+  FilePdfOutlined,
+  Html5Outlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Flex, MenuProps, Space } from "antd";
+import { Button, Dropdown, Flex, MenuProps, Space, Tooltip } from "antd";
 import React, { useContext, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { documentsMenuModel, selectedDocumentData } from "../../model/AppModel";
@@ -21,14 +26,17 @@ const exportItems: MenuProps["items"] = [
   {
     label: "HTML",
     key: "html",
+    icon: <Html5Outlined />,
   },
   {
     label: "PDF",
     key: "pdf",
+    icon: <FilePdfOutlined />,
   },
   {
     label: "Markdown",
     key: "markdown",
+    icon: <FileMarkdownOutlined />,
   },
 ];
 
@@ -36,6 +44,7 @@ const importItems: MenuProps["items"] = [
   {
     label: "Markdown",
     key: "markdown",
+    icon: <FileMarkdownOutlined />,
   },
 ];
 
@@ -136,29 +145,34 @@ const RightPart: React.FC = observer(() => {
         ref={inputRef}
         type={"file"}
         accept={".md"}
+        aria-label="Импорт Markdown файла"
         style={{
           display: "none",
         }}
       />
-      <Button
-        type="text"
-        icon={<GithubOutlined />}
-        onClick={() =>
-          window.open("https://github.com/EldarMuhamethanov/markup", "_blank")
-        }
-      >
-        GitHub
-      </Button>
-      <Button
-        type="text"
-        icon={<QuestionCircleOutlined />}
-        onClick={() => setIsHelpModalOpen(true)}
-      >
-        Справка по Markdown
-      </Button>
+      <Tooltip title="Открыть репозиторий проекта">
+        <Button
+          type="text"
+          icon={<GithubOutlined />}
+          onClick={() =>
+            window.open("https://github.com/EldarMuhamethanov/markup", "_blank")
+          }
+        >
+          GitHub
+        </Button>
+      </Tooltip>
+      <Tooltip title="Открыть справку по Markdown">
+        <Button
+          type="text"
+          icon={<QuestionCircleOutlined />}
+          onClick={() => setIsHelpModalOpen(true)}
+        >
+          Справка по Markdown
+        </Button>
+      </Tooltip>
       {contentState && (
         <Dropdown menu={exportMenuProps} trigger={["click"]}>
-          <Button>
+          <Button icon={<ExportOutlined />}>
             <Space>
               Экспорт
               <DownOutlined />
@@ -167,7 +181,7 @@ const RightPart: React.FC = observer(() => {
         </Dropdown>
       )}
       <Dropdown menu={importMenuProps} trigger={["click"]}>
-        <Button>
+        <Button icon={<ImportOutlined />}>
           <Space>
             Импорт
             <DownOutlined />

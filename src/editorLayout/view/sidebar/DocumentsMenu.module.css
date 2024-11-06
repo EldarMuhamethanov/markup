@@ -8,3 +8,61 @@
 .toolbar {
   align-self: center;
 }
+
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.searchWrapper {
+  margin-bottom: 16px;
+}
+
+.search {
+  border-radius: 6px;
+}
+
+.search:hover {
+  border-color: #40a9ff;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.actionButton {
+  border-radius: 6px;
+}
+
+.menu {
+  border-right: none !important;
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: transparent;
+}
+
+.menu :global(.ant-menu-item) {
+  border-radius: 6px;
+  margin: 4px 0;
+  height: 40px;
+  line-height: 40px;
+}
+
+.menu :global(.ant-menu-submenu-title) {
+  border-radius: 6px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.menu :global(.ant-menu-item-selected) {
+  background-color: #e6f7ff !important;
+}
+
+.menu :global(.ant-menu-item:hover),
+.menu :global(.ant-menu-submenu-title:hover) {
+  background-color: #f0f0f0;
+}

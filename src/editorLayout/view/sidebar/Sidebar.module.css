@@ -1,4 +1,11 @@
 .sidebar {
-  background: #fff;
-  padding: 10px 0;
+  border-right: 1px solid #f0f0f0;
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.03);
+  height: 100vh;
+  background-color: #fafafa !important;
+}
+
+.sidebarContent {
+  padding: 16px 12px;
+  height: calc(100vh - 64px);
 }

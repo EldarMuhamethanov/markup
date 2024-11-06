@@ -7,8 +7,6 @@ import { MarkdownEditorLayout } from "./markdownEditor/MarkdownEditorLayout";
 import styles from "./EditorLayout.module.css";
 import { Sidebar } from "./sidebar/Sidebar";
 import { Header } from "./header/Header";
-import { CreateDocumentModal } from "./filesActionModals/CreateDocumentModal";
-import { RenameDocumentModal } from "./filesActionModals/RenameDocumentModal";
 import { PdfTargetContext } from "./padConvertation/PdfTargetContext";
 import { useSingleLayoutEffect } from "@/core/hooks/useSingleLayoutEffect";
 import {
@@ -18,16 +16,6 @@ import {
 } from "../model/AppModel";
 import { enablePatches } from "immer";
 import "../../../public/Markdown.css";
-
-const Modals: React.FC = () => {
-  return (
-    <>
-      <CreateDocumentModal type={"file"} />
-      <CreateDocumentModal type={"folder"} />
-      <RenameDocumentModal />
-    </>
-  );
-};
 
 const EditorLayout: React.FC = () => {
   useSingleLayoutEffect(() => {
@@ -47,7 +35,6 @@ const EditorLayout: React.FC = () => {
             <MarkdownEditorLayout />
           </Content>
         </Layout>
-        <Modals />
       </Layout>
     </PdfTargetContext.Provider>
   );
