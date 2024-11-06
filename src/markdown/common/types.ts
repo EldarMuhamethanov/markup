@@ -15,7 +15,7 @@ type OrderedListItemBlock = {
   level: number;
 };
 
-export interface UnorderedListItemBlock extends BlockData {
+interface UnorderedListItemBlock {
   type: "unorderedListItem";
   text: string;
   level: number;

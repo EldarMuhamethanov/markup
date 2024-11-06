@@ -59,7 +59,7 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
           // Ищем ближайший родительский элемент
           const parentItems = itemsByLevel[parentLevel];
           if (parentItems) {
-            let parentIndex = parentItems.length - 1;
+            const parentIndex = parentItems.length - 1;
             while (parentIndex >= 0) {
               const parent = parentItems[parentIndex];
               if (!parent.children) {
@@ -94,9 +94,9 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
     if (quoteList) {
       groups.push({
         type: "quote",
-        blocks: quoteList.filter((block, index) => 
+        blocks: quoteList!.filter((block, index) => 
           block.text !== "" || 
-          (index < quoteList.length - 1 && quoteList[index + 1].text !== "")
+          (index < quoteList!.length - 1 && quoteList![index + 1].text !== "")
         ),
       });
       quoteList = null;

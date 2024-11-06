@@ -29,13 +29,13 @@ const MarkdownEditorLayout: React.FC = observer(() => {
   }, []);
 
   const startResize = useCallback(() => {
+    const stopResize = () => {
+      document.removeEventListener("mousemove", handleResize);
+      document.removeEventListener("mouseup", stopResize);
+    };
+
     document.addEventListener("mousemove", handleResize);
     document.addEventListener("mouseup", stopResize);
-  }, [handleResize]);
-
-  const stopResize = useCallback(() => {
-    document.removeEventListener("mousemove", handleResize);
-    document.removeEventListener("mouseup", stopResize);
   }, [handleResize]);
 
   const _setContentState: RichtextEditorProps["setContentState"] = (
