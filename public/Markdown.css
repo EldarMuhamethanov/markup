@@ -139,7 +139,7 @@
 /* Списки */
 .markdown ol,
 .markdown ul {
-  padding-left: 24px;
+  padding-left: 1.5em;
   margin: 16px 0;
 }
 
@@ -151,9 +151,54 @@
   list-style-type: disc;
 }
 
-.markdown li {
+.markdown ul ul,
+.markdown ul ol,
+.markdown ol ul,
+.markdown ol ol {
   margin: 8px 0;
+}
+
+.markdown li {
+  margin: 4px 0;
   line-height: 1.6;
+}
+
+.markdown ul > li {
+  list-style-type: disc;
+}
+
+.markdown ul > li > ul > li {
+  list-style-type: circle;
+}
+
+.markdown ul > li > ul > li > ul > li {
+  list-style-type: square;
+}
+
+.markdown ol > li {
+  list-style-type: decimal;
+}
+
+.markdown ol > li > ol > li {
+  list-style-type: lower-alpha;
+}
+
+.markdown ol > li > ol > li > ol > li {
+  list-style-type: lower-roman;
+}
+
+/* Отступы для вложенных списков */
+.markdown ul li ul,
+.markdown ul li ol,
+.markdown ol li ul,
+.markdown ol li ol {
+  margin-left: 1em;
+}
+
+/* Стили для текста внутри элементов списка */
+.markdown li span {
+  display: inline-block;
+  vertical-align: top;
 }
 
 /* Ссылки */
@@ -174,7 +219,7 @@
   border-top: 1px solid #e2e8f0;
   margin: 24px 0;
 }
-.markdown 
+
 /* Изображения */
 .markdown img {
   max-width: 100%;

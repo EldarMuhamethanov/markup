@@ -3,18 +3,32 @@ import { OrderedListGroup, UnorderedListGroup } from "../common/types";
 import { ListItemView } from "./blocks/ListItemView";
 
 const ListGroups: React.FC<OrderedListGroup | UnorderedListGroup> = (props) => {
-  const listContent = (
-    <>
-      {props.blocks.map((block, index) => (
-        <ListItemView text={block.text} key={`${index}`} />
-      ))}
-    </>
-  );
+  // Группируем элементы по уровням вложенности
+  const renderNestedList = (blocks: typeof props.blocks, currentLevel: number = 0) => {
+    const currentLevelBlocks = blocks.filter(block => block.level === currentLevel);
+    
+    if (currentLevelBlocks.length === 0) {
+      return null;
+    }
 
-  if (props.type === "orderedList") {
-    return <ol>{listContent}</ol>;
-  }
-  return <ul>{listContent}</ul>;
+    const listItems = currentLevelBlocks.map((block, index) => {
+      const nestedContent = renderNestedList(blocks, currentLevel + 1);
+      
+      return (
+        <li key={`${index}`}>
+          <ListItemView text={block.text} />
+          {nestedContent}
+        </li>
+      );
+    });
+
+    if (props.type === "orderedList") {
+      return <ol>{listItems}</ol>;
+    }
+    return <ul>{listItems}</ul>;
+  };
+
+  return renderNestedList(props.blocks);
 };
 
 export { ListGroups };

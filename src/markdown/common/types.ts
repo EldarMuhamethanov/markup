@@ -12,11 +12,13 @@ type QuoteBlock = {
 type OrderedListItemBlock = {
   type: "orderedListItem";
   text: string;
+  level: number;
 };
 
 type UnorderedListItemBlock = {
   type: "unorderedListItem";
   text: string;
+  level: number;
 };
 
 type CodeBlock =
@@ -48,6 +50,10 @@ type TableRowBlock = {
 
 type TableBlock = TableHeaderBlock | TableRowBlock;
 
+type HorizontalRuleBlock = {
+  type: "horizontalRule";
+};
+
 type BlockData =
   | HeaderBlock
   | OrderedListItemBlock
@@ -55,7 +61,8 @@ type BlockData =
   | QuoteBlock
   | CodeBlock
   | TableBlock
-  | PlainTextBlock;
+  | PlainTextBlock
+  | HorizontalRuleBlock;
 
 type DefaultGroup = {
   type: "default";
@@ -117,4 +124,5 @@ export type {
   TableHeaderBlock,
   TableBlock,
   TableRowBlock,
+  HorizontalRuleBlock,
 };

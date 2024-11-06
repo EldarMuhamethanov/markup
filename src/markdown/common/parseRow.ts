@@ -34,20 +34,27 @@ const checkQuote = (row: string): QuoteBlock | null => {
 const checkListItem = (
   row: string
 ): UnorderedListItemBlock | OrderedListItemBlock | null => {
-  const unorderedMatch = row.match(/^-\s+(.+)/);
-  if (unorderedMatch && unorderedMatch[1]) {
+  const indentMatch = row.match(/^(\s*)/);
+  const level = indentMatch ? Math.floor(indentMatch[1].length / 2) : 0;
+  
+  const unorderedMatch = row.match(/^(\s*)-\s+(.+)/);
+  if (unorderedMatch && unorderedMatch[2]) {
     return {
       type: "unorderedListItem",
-      text: unorderedMatch[1],
+      text: unorderedMatch[2],
+      level,
     };
   }
-  const orderedMatch = row.match(/^\d+\.\s+(.+)/);
-  if (orderedMatch && orderedMatch[1]) {
+
+  const orderedMatch = row.match(/^(\s*)\d+\.\s+(.+)/);
+  if (orderedMatch && orderedMatch[2]) {
     return {
       type: "orderedListItem",
-      text: orderedMatch[1],
+      text: orderedMatch[2],
+      level,
     };
   }
+
   return null;
 };
 
@@ -98,6 +105,10 @@ const checkRow = (
   };
 };
 
+const checkHorizontalRule = (row: string): boolean => {
+  return !!row.match(/^\*{3,}\s*$/);
+};
+
 export const getRowParser = () => {
   let codeBlockOpened = false;
   let headerRowFinded = false;
@@ -111,6 +122,12 @@ export const getRowParser = () => {
   };
 
   return (row: string): BlockData | null => {
+    if (checkHorizontalRule(row)) {
+      resetHeaderData();
+      return {
+        type: "horizontalRule",
+      };
+    }
     if (checkCodeOpenClose(row) && !codeBlockOpened) {
       codeBlockOpened = true;
       resetHeaderData();

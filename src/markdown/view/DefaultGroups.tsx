@@ -2,17 +2,25 @@ import React from "react";
 import { DefaultGroup } from "../common/types";
 import { HeaderView } from "./blocks/Header";
 import { PlainTextView } from "./blocks/PlainTextView";
+import { HorizontalRuleView } from "./blocks/HorizontalRuleView";
 
-const DefaultGroups: React.FC<DefaultGroup> = (group) => {
-  const block = group.blocks[0];
-
-  if (block.type === "header") {
-    return <HeaderView {...block} />;
-  }
-  if (block.type === "plainText") {
-    return <PlainTextView {...block} />;
-  }
-  return null;
+const DefaultGroups: React.FC<DefaultGroup> = ({ blocks }) => {
+  return (
+    <>
+      {blocks.map((block, index) => {
+        switch (block.type) {
+          case "header":
+            return <HeaderView {...block} />;
+          case "plainText":
+            return <PlainTextView {...block} />;
+          case "horizontalRule":
+            return <HorizontalRuleView key={index} {...block} />;
+          default:
+            return null;
+        }
+      })}
+    </>
+  );
 };
 
 export { DefaultGroups };
