@@ -5,24 +5,27 @@ import {
 } from "../model/selection/SelectionState";
 import { ModifyRichtextFnResult } from "../richtextOperation/ModifyRichtextFn";
 
-type SwitchParagraphType =
+export type SwitchParagraphType =
   | "quote"
-  | "ordered-list-item"
   | "unordered-list-item"
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5";
+  | "ordered-list-item"
+  | "heading-one"
+  | "heading-two"
+  | "heading-three"
+  | "heading-four"
+  | "heading-five"
+  | "heading-six"
+  | "code-block";
 
 const prefixes = new Map([
   ["quote", "> "],
   ["unordered-list-item", "- "],
-  ["h1", "# "],
-  ["h2", "## "],
-  ["h3", "### "],
-  ["h4", "#### "],
-  ["h5", "##### "],
+  ["heading-one", "# "],
+  ["heading-two", "## "],
+  ["heading-three", "### "],
+  ["heading-four", "#### "],
+  ["heading-five", "##### "],
+  ["heading-six", "###### "],
 ]);
 
 const switchParagraphType = (
@@ -36,21 +39,36 @@ const switchParagraphType = (
   );
 
   const prefix = prefixes.get(paragraphType);
+  let offsetDiff = 0;
 
-  allSelectedBlocksKeys.forEach((blockKey) => {
+  allSelectedBlocksKeys.forEach((blockKey, index) => {
     const block = contentState.blockMap.blocks[blockKey];
-    block.text = `${prefix} ${block.text}`;
+
+    if (paragraphType === "ordered-list-item") {
+      const numberedListRegex = /^\d+\.\s/;
+      if (numberedListRegex.test(block.text)) {
+        block.text = block.text.replace(numberedListRegex, "");
+        offsetDiff = -3;
+      } else {
+        block.text = `${index + 1}. ${block.text}`;
+        offsetDiff = 3;
+      }
+    } else if (prefix && block.text.startsWith(prefix)) {
+      block.text = block.text.substring(prefix.length).trimLeft();
+      offsetDiff = -(prefix.length + 1);
+    } else {
+      block.text = `${prefix} ${block.text}`;
+      offsetDiff = prefix?.length ? prefix.length + 1 : 0;
+    }
   });
 
   return {
     selection: SelectionState.create({
       ...selection,
-      startOffset: selection.startOffset + (prefix?.length || 0),
-      endOffset: selection.endOffset + (prefix?.length || 0),
+      startOffset: Math.max(0, selection.startOffset + offsetDiff),
+      endOffset: Math.max(0, selection.endOffset + offsetDiff),
     }),
   };
 };
 
 export { switchParagraphType };
-
-export type { SwitchParagraphType };

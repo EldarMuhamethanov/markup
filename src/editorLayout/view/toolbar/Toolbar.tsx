@@ -1,21 +1,25 @@
 import React, { ReactNode, useState } from "react";
 import { RichTextOperationHandler } from "../../../richtext/richtextOperation/RichTextOperationHandler";
 import styles from "./Toolbar.module.css";
-import { Button, Space, Tooltip } from "antd";
+import { Button, Space, Tooltip, Dropdown, MenuProps } from "antd";
 import {
   BoldOutlined,
   DownOutlined,
   ItalicOutlined,
   StrikethroughOutlined,
-  UpOutlined,
 } from "@ant-design/icons";
 import { ToggleInlineStyles } from "../../../richtext/model/InlineStyles";
 import { SubscriptText } from "../../../common/icons/SubscriptText";
 import { SuperscriptText } from "../../../common/icons/SuperscriptText";
-import { getStylesWithMods } from "../../../core/styles/getStylesWithMods";
 import { HightlightText } from "../../../common/icons/HightlightText";
 import { CodeText } from "../../../common/icons/CodeText";
 import { SwitchParagraphType } from "../../../richtext/immutable/switchParagraphType";
+import { HeadingIcon } from "../../../common/icons/HeadingIcon";
+import {
+  OrderedListOutlined,
+  UnorderedListOutlined,
+  QuestionOutlined,
+} from "@ant-design/icons";
 
 const Divider: React.FC = () => {
   return <div className={styles.divider}></div>;
@@ -26,8 +30,6 @@ interface IToolbarProps {
 }
 
 const Toolbar: React.FC<IToolbarProps> = ({ operationHandler }) => {
-  const [showed, setShowed] = useState(true);
-
   const inlineStyles: Array<{
     icon: ReactNode;
     style: ToggleInlineStyles;
@@ -70,37 +72,88 @@ const Toolbar: React.FC<IToolbarProps> = ({ operationHandler }) => {
     },
   ];
 
+  const headingItems: MenuProps["items"] = [
+    {
+      key: "heading-one",
+      label: "Heading 1",
+      icon: <HeadingIcon level={1} />,
+    },
+    {
+      key: "heading-two",
+      label: "Heading 2",
+      icon: <HeadingIcon level={2} />,
+    },
+    {
+      key: "heading-three",
+      label: "Heading 3",
+      icon: <HeadingIcon level={3} />,
+    },
+    {
+      key: "heading-four",
+      label: "Heading 4",
+      icon: <HeadingIcon level={4} />,
+    },
+    {
+      key: "heading-five",
+      label: "Heading 5",
+      icon: <HeadingIcon level={5} />,
+    },
+    {
+      key: "heading-six",
+      label: "Heading 6",
+      icon: <HeadingIcon level={6} />,
+    },
+  ];
+
   const paragraphTypes: {
     icon: ReactNode;
     type: SwitchParagraphType;
     tooltipText: string;
   }[] = [
     {
-      icon: <BoldOutlined />,
+      icon: <QuestionOutlined />,
       type: "quote",
       tooltipText: "Quote",
     },
     {
-      icon: <ItalicOutlined />,
+      icon: <UnorderedListOutlined />,
       type: "unordered-list-item",
-      tooltipText: "Unordered list item",
+      tooltipText: "Unordered list",
+    },
+    {
+      icon: <OrderedListOutlined />,
+      type: "ordered-list-item",
+      tooltipText: "Ordered list",
+    },
+    {
+      icon: <CodeText />,
+      type: "code-block",
+      tooltipText: "Code block",
     },
   ];
 
+  const handleHeadingSelect: MenuProps["onClick"] = ({ key }) => {
+    operationHandler.switchBlocksStyles(key as SwitchParagraphType);
+  };
+
   return (
-    <div
-      className={getStylesWithMods(styles.toolbar, {
-        [styles.toolbar_hidden]: !showed,
-      })}
-    >
+    <div className={styles.toolbar}>
       <div className={styles.toolbarContent}>
-        <span
-          className={styles.toolbarHideButton}
-          onClick={() => setShowed(!showed)}
-        >
-          {showed ? <DownOutlined /> : <UpOutlined />}
-        </span>
-        <Space>
+        <Space size="small">
+          <Dropdown
+            menu={{ items: headingItems, onClick: handleHeadingSelect }}
+            dropdownRender={(element) => (
+              <div onMouseDown={(e) => e.preventDefault()}>{element}</div>
+            )}
+          >
+            <Button>
+              <Space>
+                <HeadingIcon level={1} />
+                <DownOutlined />
+              </Space>
+            </Button>
+          </Dropdown>
+          <Divider />
           <Space>
             {inlineStyles.map((inlineStyle) => (
               <Tooltip

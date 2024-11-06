@@ -24,7 +24,7 @@ class RichTextOperationHandler {
 
   onSelectAll() {
     this._modifyFn((contentState, selection) => {
-      const lastBlock = ContentState.getLastBlock(contentState);
+      const lastBlock = ContentState.getLastBlock(contentStswiate);
       const firstBlock = ContentState.getFirstBlock(contentState);
       if (!lastBlock || !firstBlock) {
         return {

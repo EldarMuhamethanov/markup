@@ -1,5 +1,9 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Space } from "antd";
+import {
+  DownOutlined,
+  QuestionCircleOutlined,
+  GithubOutlined,
+} from "@ant-design/icons";
+import { Button, Dropdown, Flex, MenuProps, Space } from "antd";
 import React, { useContext, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { documentsMenuModel, selectedDocumentData } from "../../model/AppModel";
@@ -11,6 +15,7 @@ import { createHTMLDocument } from "../../../backend/createHTML";
 import { useInputFile } from "../../../core/file/useInputFile";
 import { getHtmlWithRemappedImages } from "./getHtmlWithRemappedImages";
 import { GeneratePdfModalLoadingModal } from "./GeneratePdfModalLoadingModal";
+import { MarkdownHelpModal } from "./MarkdownHelpModal";
 
 const exportItems: MenuProps["items"] = [
   {
@@ -39,6 +44,7 @@ const RightPart: React.FC = observer(() => {
   const contentState = selectedDocumentData.contentState;
   const { targetRef: pdfTargetRef } = useContext(PdfTargetContext);
   const [generatePdfModalOpened, setGeneratePdfModalOpened] = useState(false);
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
 
   const handleExportToMarkdown = (fileName: string) => {
     const markdownText = contentState && ContentState.getText(contentState);
@@ -125,7 +131,7 @@ const RightPart: React.FC = observer(() => {
   });
 
   return (
-    <Space>
+    <Flex gap={10}>
       <input
         ref={inputRef}
         type={"file"}
@@ -134,6 +140,22 @@ const RightPart: React.FC = observer(() => {
           display: "none",
         }}
       />
+      <Button
+        type="text"
+        icon={<GithubOutlined />}
+        onClick={() =>
+          window.open("https://github.com/EldarMuhamethanov/markup", "_blank")
+        }
+      >
+        GitHub
+      </Button>
+      <Button
+        type="text"
+        icon={<QuestionCircleOutlined />}
+        onClick={() => setIsHelpModalOpen(true)}
+      >
+        Справка по Markdown
+      </Button>
       {contentState && (
         <Dropdown menu={exportMenuProps} trigger={["click"]}>
           <Button>
@@ -153,7 +175,11 @@ const RightPart: React.FC = observer(() => {
         </Button>
       </Dropdown>
       <GeneratePdfModalLoadingModal isOpen={generatePdfModalOpened} />
-    </Space>
+      <MarkdownHelpModal
+        isOpen={isHelpModalOpen}
+        onClose={() => setIsHelpModalOpen(false)}
+      />
+    </Flex>
   );
 });
 
