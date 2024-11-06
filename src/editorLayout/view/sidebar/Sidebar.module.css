@@ -1,11 +1,13 @@
 .sidebar {
   border-right: 1px solid #f0f0f0;
   box-shadow: 1px 0 8px rgba(0, 0, 0, 0.03);
-  height: 100vh;
+  height: 100%;
   background-color: #fafafa !important;
+  overflow: hidden;
 }
 
 .sidebarContent {
   padding: 16px 12px;
-  height: calc(100vh - 64px);
+  height: calc(100% - 64px);
+  overflow: auto;
 }
