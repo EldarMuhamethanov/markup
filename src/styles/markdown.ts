@@ -5,6 +5,7 @@ export const markdownStyles = `
   color: #2d3748;
   line-height: 1.6;
   font-size: 16px;
+  white-space: pre-wrap;
 }
 
 /* Таблицы */

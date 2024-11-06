@@ -14,12 +14,14 @@ function insertTextToCollapsedRange(
   const head = paragraph.text.slice(0, selection.startOffset);
   const tail = paragraph.text.slice(selection.endOffset);
 
-  paragraph.text = head + text + tail;
+  const safeText = text || '';
+
+  paragraph.text = head + safeText + tail;
 
   return {
     selection: SelectionState.createCollapsed({
       startKey: paragraph.key,
-      startOffset: selection.startOffset + text.length,
+      startOffset: selection.startOffset + safeText.length,
     }),
   };
 }

@@ -1,5 +1,5 @@
 .richtextEditor {
-  white-space: pre;
+  white-space: pre-wrap;
   outline: none;
   display: flex;
   flex-direction: column;
