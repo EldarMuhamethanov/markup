@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Content } from "antd/es/layout/layout";
 import { Layout } from "antd";
 import { MarkdownEditorLayout } from "./markdownEditor/MarkdownEditorLayout";
@@ -18,6 +18,8 @@ import { enablePatches } from "immer";
 import "../../../public/Markdown.css";
 
 const EditorLayout: React.FC = () => {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
   useSingleLayoutEffect(() => {
     enablePatches();
     filesDataModel.init();
@@ -28,9 +30,12 @@ const EditorLayout: React.FC = () => {
   return (
     <PdfTargetContext.Provider value={{ targetRef: { current: null } }}>
       <Layout className={styles.mainLayout}>
-        <Header />
+        <Header
+          sidebarCollapsed={sidebarCollapsed}
+          onSidebarCollapse={setSidebarCollapsed}
+        />
         <Layout hasSider={true} className={styles.contentRow}>
-          <Sidebar />
+          <Sidebar collapsed={sidebarCollapsed} />
           <Content>
             <MarkdownEditorLayout />
           </Content>

@@ -2,10 +2,20 @@ import Sider from "antd/es/layout/Sider";
 import styles from "./Sidebar.module.css";
 import React from "react";
 import { DocumentsMenu } from "./DocumentsMenu";
+import classNames from "classnames";
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  collapsed: boolean;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   return (
-    <Sider className={styles.sidebar} width={220}>
+    <Sider 
+      className={classNames(styles.sidebar, {
+        [styles.collapsed]: collapsed
+      })} 
+      trigger={null}
+    >
       <div className={styles.sidebarContent}>
         <DocumentsMenu />
       </div>

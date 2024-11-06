@@ -1,11 +1,17 @@
 import styles from "./Header.module.css";
 import React from "react";
 import { Header as AntHeader } from "antd/es/layout/layout";
-import { Flex, Typography } from "antd";
+import { Button, Flex, Typography } from "antd";
 import { RightPart } from "./RightPart";
 import Image from "next/image";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
-const Header = () => {
+interface HeaderProps {
+  sidebarCollapsed: boolean;
+  onSidebarCollapse: (collapsed: boolean) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onSidebarCollapse }) => {
   return (
     <AntHeader className={styles.header}>
       <Flex
@@ -13,6 +19,10 @@ const Header = () => {
         style={{ height: "100%", position: "relative" }}
         align="center"
       >
+        <Button 
+          icon={sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => onSidebarCollapse(!sidebarCollapsed)}
+        />
         <Flex align="end">
           <Image src="/NewLogo.png" width={80} height={50} alt="logo" />
           <Typography.Title
