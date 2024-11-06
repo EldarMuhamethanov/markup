@@ -23,24 +23,28 @@ const MarkdownEditorLayout: React.FC = observer(() => {
     <div className={styles.container}>
       {!contentStateCopy && <EmptyLayout />}
       {contentStateCopy && (
-        <EditorWrapper
-          header={"Markdown"}
-          getContent={(wrapperRef) => (
-            <RichtextEditor
-              containerRef={wrapperRef}
-              contentState={contentStateCopy}
-              setContentState={_setContentState}
+        <div className={styles.editorsContainer}>
+          <div className={styles.editorSection}>
+            <EditorWrapper
+              header={"Markdown"}
+              getContent={(wrapperRef) => (
+                <RichtextEditor
+                  containerRef={wrapperRef}
+                  contentState={contentStateCopy}
+                  setContentState={_setContentState}
+                />
+              )}
             />
-          )}
-        />
-      )}
-      {contentStateCopy && (
-        <EditorWrapper
-          header={"Предпросмотр"}
-          getContent={() => (
-            <Markdown text={ContentState.getText(contentStateCopy)} />
-          )}
-        />
+          </div>
+          <div className={styles.editorSection}>
+            <EditorWrapper
+              header={"Предпросмотр"}
+              getContent={() => (
+                <Markdown text={ContentState.getText(contentStateCopy)} />
+              )}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

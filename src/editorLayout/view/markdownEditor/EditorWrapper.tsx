@@ -12,10 +12,11 @@ const EditorWrapper = ({ header, getContent }: EditorWrapperProps) => {
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
-      <div className={styles.header}>
+      <div className={styles.headerContainer}>
         <EditorHeader title={header} />
+        <div className={styles.headerDivider} />
       </div>
-      <div className={styles.content}>{getContent(wrapperRef)}</div>
+      <div className={styles.contentContainer}>{getContent(wrapperRef)}</div>
     </div>
   );
 };
