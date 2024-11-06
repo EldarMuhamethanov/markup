@@ -10,9 +10,9 @@ const DefaultGroups: React.FC<DefaultGroup> = ({ blocks }) => {
       {blocks.map((block, index) => {
         switch (block.type) {
           case "header":
-            return <HeaderView {...block} />;
+            return <HeaderView key={index} {...block} />;
           case "plainText":
-            return <PlainTextView {...block} />;
+            return <PlainTextView key={index} {...block} />;
           case "horizontalRule":
             return <HorizontalRuleView key={index} {...block} />;
           default:

@@ -49,9 +49,8 @@ class RichTextOperationHandler {
   }
 
   onTextInput(data: string) {
-    console.log('Input data:', JSON.stringify(data));
-    if (data === '') return;
-    
+    if (data === "") return;
+
     this._modifyFn((contentState, selection) => {
       return RichtextModifiers.textInput(contentState, selection, data);
     });

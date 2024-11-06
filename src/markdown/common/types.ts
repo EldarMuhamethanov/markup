@@ -15,11 +15,12 @@ type OrderedListItemBlock = {
   level: number;
 };
 
-type UnorderedListItemBlock = {
+export interface UnorderedListItemBlock extends BlockData {
   type: "unorderedListItem";
   text: string;
   level: number;
-};
+  children?: UnorderedListItemBlock[];
+}
 
 type CodeBlock =
   | {

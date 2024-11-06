@@ -1,34 +1,39 @@
 import React from "react";
-import { OrderedListGroup, UnorderedListGroup } from "../common/types";
+import {
+  OrderedListGroup,
+  UnorderedListGroup,
+  UnorderedListItemBlock,
+  OrderedListItemBlock,
+} from "../common/types";
 import { ListItemView } from "./blocks/ListItemView";
 
 const ListGroups: React.FC<OrderedListGroup | UnorderedListGroup> = (props) => {
-  // Группируем элементы по уровням вложенности
-  const renderNestedList = (blocks: typeof props.blocks, currentLevel: number = 0) => {
-    const currentLevelBlocks = blocks.filter(block => block.level === currentLevel);
-    
-    if (currentLevelBlocks.length === 0) {
-      return null;
-    }
+  const renderListItems = (
+    items: (UnorderedListItemBlock | OrderedListItemBlock)[]
+  ) => {
+    return items.map((block, index) => {
+      const hasChildren =
+        "children" in block && block.children && block.children.length > 0;
 
-    const listItems = currentLevelBlocks.map((block, index) => {
-      const nestedContent = renderNestedList(blocks, currentLevel + 1);
-      
       return (
-        <li key={`${index}`}>
+        <li key={index}>
           <ListItemView text={block.text} />
-          {nestedContent}
+          {hasChildren &&
+            (props.type === "orderedList" ? (
+              <ol>{renderListItems(block.children!)}</ol>
+            ) : (
+              <ul>{renderListItems(block.children!)}</ul>
+            ))}
         </li>
       );
     });
-
-    if (props.type === "orderedList") {
-      return <ol>{listItems}</ol>;
-    }
-    return <ul>{listItems}</ul>;
   };
 
-  return renderNestedList(props.blocks);
+  return props.type === "orderedList" ? (
+    <ol>{renderListItems(props.blocks)}</ol>
+  ) : (
+    <ul>{renderListItems(props.blocks)}</ul>
+  );
 };
 
 export { ListGroups };

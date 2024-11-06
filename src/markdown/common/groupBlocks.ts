@@ -31,9 +31,50 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
 
   const appendUnorderedListGroup = () => {
     if (currentUnorderedList) {
+      const rootItems: UnorderedListItemBlock[] = [];
+      const itemsByLevel: { [key: number]: UnorderedListItemBlock[] } = {};
+      
+      // Сначала группируем элементы по уровням
+      currentUnorderedList.forEach((item) => {
+        if (!itemsByLevel[item.level]) {
+          itemsByLevel[item.level] = [];
+        }
+        itemsByLevel[item.level].push({...item});
+      });
+
+      // Строим дерево, начиная с верхнего уровня
+      const levels = Object.keys(itemsByLevel).map(Number).sort((a, b) => a - b);
+      
+      // Добавляем элементы нулевого уровня в корень
+      if (itemsByLevel[0]) {
+        rootItems.push(...itemsByLevel[0]);
+      }
+
+      // Для каждого уровня, кроме нулевого, находим родителя
+      for (let i = 1; i < levels.length; i++) {
+        const currentLevel = levels[i];
+        const parentLevel = levels[i - 1];
+        
+        itemsByLevel[currentLevel].forEach((item) => {
+          // Ищем ближайший родительский элемент
+          const parentItems = itemsByLevel[parentLevel];
+          if (parentItems) {
+            let parentIndex = parentItems.length - 1;
+            while (parentIndex >= 0) {
+              const parent = parentItems[parentIndex];
+              if (!parent.children) {
+                parent.children = [];
+              }
+              parent.children.push(item);
+              break;
+            }
+          }
+        });
+      }
+
       groups.push({
         type: "unorderedList",
-        blocks: currentUnorderedList,
+        blocks: rootItems,
       });
       currentUnorderedList = null;
     }
