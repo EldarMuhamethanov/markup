@@ -1,11 +1,13 @@
 export const markdownStyles = `
 .markdown {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
-    sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   color: #374151;
   line-height: 1.7;
   font-size: 16px;
   white-space: pre-wrap;
+  width: 800px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Таблицы */
