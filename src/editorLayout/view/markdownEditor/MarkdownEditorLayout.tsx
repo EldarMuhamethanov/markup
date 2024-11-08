@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "./MarkdownEditorLayout.module.css";
 import {
@@ -34,14 +36,18 @@ const MarkdownEditorLayout: React.FC = observer(() => {
     newContentState
   ) => selectedDocumentData.setContentState(newContentState);
 
-  useHtmlElementEventHandler("resize", window, () => {
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      editorLayoutModel.setLeftPaneWidth(100);
-    } else {
-      editorLayoutModel.setLeftPaneWidth(50); // или другое значение по умолчанию
+  useHtmlElementEventHandler(
+    "resize",
+    typeof window !== "undefined" ? window : null,
+    () => {
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        editorLayoutModel.setLeftPaneWidth(100);
+      } else {
+        editorLayoutModel.setLeftPaneWidth(50); // или другое значение по умолчанию
+      }
     }
-  });
+  );
 
   return (
     <div
