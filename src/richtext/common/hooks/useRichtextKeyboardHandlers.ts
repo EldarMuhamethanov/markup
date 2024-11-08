@@ -87,6 +87,15 @@ function useRichtextKeyboardHandlers(
         handler: () => operationHandler.onSelectAll(),
         withCtrl: true,
       },
+      {
+        code: "Tab",
+        handler: () => operationHandler.onTab(),
+      },
+      {
+        code: "Tab",
+        withShift: true,
+        handler: () => operationHandler.onShiftTab(),
+      },
     ],
     [operationHandler]
   );

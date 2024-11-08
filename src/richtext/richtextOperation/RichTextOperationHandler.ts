@@ -115,6 +115,86 @@ class RichTextOperationHandler {
       return switchParagraphType(contentState, selection, paragraphType);
     });
   }
+
+  onTab() {
+    this._modifyFn((contentState, selection) => {
+      if (SelectionState.isCollapsed(selection)) {
+        return RichtextModifiers.textInput(contentState, selection, "  ");
+      }
+
+      const startIndex = contentState.blockMap.order.indexOf(
+        selection.startKey
+      );
+      const endIndex = contentState.blockMap.order.indexOf(selection.endKey);
+
+      // Получаем все выделенные блоки
+      const selectedBlocks = contentState.blockMap.order.slice(
+        startIndex,
+        endIndex + 1
+      );
+
+      // Добавляем отступы ко всем выделенным блокам
+      selectedBlocks.forEach((key) => {
+        const block = contentState.blockMap.blocks[key];
+        block.text = "  " + block.text;
+      });
+
+      // Обновляем selection с учетом добавленных пробелов
+      return {
+        selection: SelectionState.create({
+          ...selection,
+          startOffset: selection.startOffset + 2,
+          endOffset: selection.endOffset + 2,
+        }),
+      };
+    });
+  }
+
+  onShiftTab() {
+    this._modifyFn((contentState, selection) => {
+      const startIndex = contentState.blockMap.order.indexOf(
+        selection.startKey
+      );
+      const endIndex = contentState.blockMap.order.indexOf(selection.endKey);
+
+      // Получаем все выделенные блоки
+      const selectedBlocks = contentState.blockMap.order.slice(
+        startIndex,
+        endIndex + 1
+      );
+
+      let startOffsetDelta = 0;
+      let endOffsetDelta = 0;
+
+      // Удаляем отступы у всех выделенных блоков
+      selectedBlocks.forEach((key) => {
+        const block = contentState.blockMap.blocks[key];
+        const leadingSpaces = block.text.match(/^(\s*)/)?.[1] || "";
+        const spacesToRemove = Math.min(2, leadingSpaces.length);
+
+        if (spacesToRemove > 0) {
+          block.text = block.text.substring(spacesToRemove);
+
+          // Корректируем смещения для первого и последнего блоков
+          if (key === selection.startKey) {
+            startOffsetDelta = spacesToRemove;
+          }
+          if (key === selection.endKey) {
+            endOffsetDelta = spacesToRemove;
+          }
+        }
+      });
+
+      // Обновляем selection с учетом удаленных пробелов
+      return {
+        selection: SelectionState.create({
+          ...selection,
+          startOffset: Math.max(0, selection.startOffset - startOffsetDelta),
+          endOffset: Math.max(0, selection.endOffset - endOffsetDelta),
+        }),
+      };
+    });
+  }
 }
 
 export { RichTextOperationHandler };
