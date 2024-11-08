@@ -45,6 +45,17 @@
   background-color: transparent;
 }
 
+.menu :global(.ant-menu-item-extra) {
+  display: none;
+}
+
+.menu :global(.ant-menu-item):hover :global(.ant-menu-item-extra) {
+  display: flex;
+  align-items: center;
+  margin-inline-end: -10px;
+  padding-inline-start: 0;
+}
+
 .menu :global(.ant-menu-item) {
   border-radius: 6px;
   margin: 4px 0;

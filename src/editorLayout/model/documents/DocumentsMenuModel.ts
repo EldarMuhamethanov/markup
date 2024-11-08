@@ -8,7 +8,7 @@ import { SelectedDocumentData } from "./SelectedDocumentData";
 import { FilesDataModel } from "../files/FilesDataModel";
 import { ContentState } from "../../../richtext/model/content/ContentState";
 import { getDocumentData } from "./getDocumentData";
-import {DEFAULT_CONTENT} from "@/editorLayout/model/files/defaultContent";
+import { DEFAULT_CONTENT } from "@/editorLayout/model/files/defaultContent";
 
 type DocumentData = FileData | FolderData;
 
@@ -63,7 +63,7 @@ class DocumentsMenuModel {
     if (this.documents.length) {
       return;
     }
-    this.createDocument('file', 'Добро пожаловать!');
+    this.createDocument("file", "Добро пожаловать!");
     const documentId = this.documents[0].id;
     const content = ContentState.createByContent(DEFAULT_CONTENT.trim());
     this._filesDataModel.setDocumentContentData(documentId, content);
@@ -94,12 +94,12 @@ class DocumentsMenuModel {
       this.documents = this.documents.filter(
         (document) => document.id !== documentId
       );
-      return;
+    } else {
+      const lastFolder = path[path.length - 1];
+      lastFolder.files = lastFolder.files.filter(
+        (document) => document.id !== documentId
+      );
     }
-    const lastFolder = path[path.length - 1];
-    lastFolder.files = lastFolder.files.filter(
-      (document) => document.id !== documentId
-    );
     this._selectedDocumentModel.setSelectedDocument(null);
     this._updateLocalStorageValues();
   }

@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Menu, Button, Input, Modal } from "antd";
+import React, { ReactNode, useRef, useState } from "react";
+import { Menu, Button, Input, Modal, Dropdown } from "antd";
 import {
   FileTextOutlined,
   FolderOutlined,
   PlusOutlined,
   SearchOutlined,
   FolderAddOutlined,
+  MoreOutlined,
+  EditOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import styles from "./DocumentsMenu.module.css";
 import { observer } from "mobx-react-lite";
@@ -14,12 +17,85 @@ import { documentsMenuModel } from "@/editorLayout/model/AppModel";
 import { selectedDocumentData } from "@/editorLayout/model/AppModel";
 import type { MenuProps } from "antd";
 
-function filterDocuments(documents: DocumentData[], query: string): DocumentData[] {
+function DocumentContextMenu({ id, name }: Pick<DocumentData, "id" | "name">) {
+  const renameModalValue = useRef<string>("");
+
+  const contextMenuItems: MenuProps["items"] = [
+    {
+      label: "Переименовать",
+      key: "rename",
+      icon: <EditOutlined />,
+    },
+    {
+      label: "Удалить",
+      key: "remove",
+      icon: <DeleteOutlined />,
+    },
+  ];
+
+  const handleContextMenuClick: MenuProps["onClick"] = (e) => {
+    switch (e.key) {
+      case "rename": {
+        Modal.confirm({
+          title: "Переименовать",
+          content: (
+            <Input
+              defaultValue={name}
+              onChange={(e) => {
+                renameModalValue.current = e.target.value;
+              }}
+            />
+          ),
+          onOk: () => {
+            documentsMenuModel.renameDocument(id, renameModalValue.current);
+          },
+        });
+        break;
+      }
+      case "remove": {
+        Modal.confirm({
+          title: "Удалить",
+          content: `Вы уверены, что хотите удалить "${name}"?`,
+          okText: "Удалить",
+          okType: "danger",
+          onOk: () => documentsMenuModel.removeDocument(id),
+        });
+      }
+    }
+  };
+
+  const contextMenuProps = {
+    items: contextMenuItems,
+    onClick: handleContextMenuClick,
+  };
+
+  return (
+    <Dropdown menu={contextMenuProps} trigger={["click"]}>
+      <Button icon={<MoreOutlined />} size="middle" type="link" />
+    </Dropdown>
+  );
+}
+
+function DocumentLabel({ children }: { children: ReactNode }) {
+  return (
+    <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+      {children}
+    </span>
+  );
+}
+
+function filterDocuments(
+  documents: DocumentData[],
+  query: string
+): DocumentData[] {
   return documents
     .map((doc) => {
       if (doc.type === "folder") {
         const filteredFiles = filterDocuments(doc.files, query);
-        if (filteredFiles.length > 0 || doc.name.toLowerCase().includes(query)) {
+        if (
+          filteredFiles.length > 0 ||
+          doc.name.toLowerCase().includes(query)
+        ) {
           return { ...doc, files: filteredFiles };
         }
       } else if (doc.name.toLowerCase().includes(query)) {
@@ -58,68 +134,37 @@ export const DocumentsMenu: React.FC = observer(() => {
   const renderDocumentItems = (
     documents: DocumentData[]
   ): MenuProps["items"] => {
-    const filteredDocuments = filterDocuments(documents, searchQuery.toLowerCase());
+    const filteredDocuments = filterDocuments(
+      documents,
+      searchQuery.toLowerCase()
+    );
     return filteredDocuments.map((doc) => {
-      // const contextMenu: MenuProps["items"] = [
-      //   {
-      //     key: "rename",
-      //     icon: <EditOutlined />,
-      //     label: "Переименовать",
-      //     onClick: () => {
-      //       Modal.confirm({
-      //         title: "Переименовать",
-      //         content: (
-      //           <Input
-      //             defaultValue={doc.name}
-      //             onChange={(e) => setNewItemName(e.target.value)}
-      //           />
-      //         ),
-      //         onOk: () =>
-      //           documentsMenuModel.renameDocument(doc.id, newItemName),
-      //       });
-      //     },
-      //   },
-      //   {
-      //     key: "delete",
-      //     icon: <DeleteOutlined />,
-      //     label: "Удалить",
-      //     danger: true,
-      //     onClick: () => {
-      //       Modal.confirm({
-      //         title: "Удалить",
-      //         content: `Вы уверены, что хотите удалить "${doc.name}"?`,
-      //         okText: "Удалить",
-      //         okType: "danger",
-      //         onOk: () => documentsMenuModel.removeDocument(doc.id),
-      //       });
-      //     },
-      //   },
-      // ];
-
       if (doc.type === "folder") {
         return {
           key: doc.id,
-          label: doc.name,
+          label: <DocumentLabel>{doc.name}</DocumentLabel>,
           icon: <FolderOutlined />,
           children: renderDocumentItems(doc.files),
           onMouseDown: (e: MouseEvent) => {
             if (e.defaultPrevented) {
               return;
             }
-            e.preventDefault()
-            documentsMenuModel.selectDocument(doc.id)
+            e.preventDefault();
+            documentsMenuModel.selectDocument(doc.id);
           },
+          extra: <DocumentContextMenu id={doc.id} name={doc.name} />,
         };
       }
 
       return {
         key: doc.id,
-        label: doc.name,
+        label: <DocumentLabel>{doc.name}</DocumentLabel>,
         icon: <FileTextOutlined />,
         onMouseDown: (e: MouseEvent) => {
-          e.preventDefault()
-          documentsMenuModel.selectDocument(doc.id)
+          e.preventDefault();
+          documentsMenuModel.selectDocument(doc.id);
         },
+        extra: <DocumentContextMenu id={doc.id} name={doc.name} />,
       };
     });
   };
