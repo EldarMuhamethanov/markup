@@ -8,6 +8,7 @@ import {
   FilePdfOutlined,
   Html5Outlined,
   MessageOutlined,
+  EllipsisOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Flex, MenuProps, Space, Tooltip } from "antd";
 import React, { useContext, useRef, useState } from "react";
@@ -23,6 +24,7 @@ import { getHtmlWithRemappedImages } from "./getHtmlWithRemappedImages";
 import { GeneratePdfModalLoadingModal } from "./GeneratePdfModalLoadingModal";
 import { MarkdownHelpModal } from "./MarkdownHelpModal";
 import { FeedbackModal } from "./FeedbackModal";
+import styles from "./Header.module.css";
 
 const exportItems: MenuProps["items"] = [
   {
@@ -142,8 +144,30 @@ const RightPart: React.FC = observer(() => {
     }
   });
 
+  const moreMenuItems: MenuProps["items"] = [
+    {
+      label: "GitHub",
+      key: "github",
+      icon: <GithubOutlined />,
+      onClick: () =>
+        window.open("https://github.com/EldarMuhamethanov/markup", "_blank"),
+    },
+    {
+      label: "Справка по Markdown",
+      key: "help",
+      icon: <QuestionCircleOutlined />,
+      onClick: () => setIsHelpModalOpen(true),
+    },
+    {
+      label: "Обратная связь",
+      key: "feedback",
+      icon: <MessageOutlined />,
+      onClick: () => setIsFeedbackModalOpen(true),
+    },
+  ];
+
   return (
-    <Flex gap={10}>
+    <Flex gap={10} align="center">
       <input
         ref={inputRef}
         type={"file"}
@@ -153,40 +177,52 @@ const RightPart: React.FC = observer(() => {
           display: "none",
         }}
       />
-      <Tooltip title="Открыть репозиторий проекта">
-        <Button
-          type="text"
-          icon={<GithubOutlined />}
-          onClick={() =>
-            window.open("https://github.com/EldarMuhamethanov/markup", "_blank")
-          }
-        >
-          GitHub
-        </Button>
-      </Tooltip>
-      <Tooltip title="Открыть справку по Markdown">
-        <Button
-          type="text"
-          icon={<QuestionCircleOutlined />}
-          onClick={() => setIsHelpModalOpen(true)}
-        >
-          Справка по Markdown
-        </Button>
-      </Tooltip>
-      <Tooltip title="Оставить отзыв">
-        <Button
+      <div className={styles.desktopButtons}>
+        <Tooltip title="Открыть репозиторий проекта">
+          <Button
+            type="text"
+            icon={<GithubOutlined />}
+            onClick={() =>
+              window.open(
+                "https://github.com/EldarMuhamethanov/markup",
+                "_blank"
+              )
+            }
+          >
+            GitHub
+          </Button>
+        </Tooltip>
+        <Tooltip title="Открыть справку по Markdown">
+          <Button
+            type="text"
+            icon={<QuestionCircleOutlined />}
+            onClick={() => setIsHelpModalOpen(true)}
+          >
+            Справка по Markdown
+          </Button>
+        </Tooltip>
+        <Tooltip title="Оставить отзыв">
+          <Button
             type="text"
             icon={<MessageOutlined />}
             onClick={() => setIsFeedbackModalOpen(true)}
-        >
-          Обратная связь
-        </Button>
-      </Tooltip>
+          >
+            Обратная связь
+          </Button>
+        </Tooltip>
+      </div>
+
+      <div className={styles.mobileButtons}>
+        <Dropdown menu={{ items: moreMenuItems }} trigger={["click"]}>
+          <Button icon={<EllipsisOutlined />} />
+        </Dropdown>
+      </div>
+
       {contentState && (
         <Dropdown menu={exportMenuProps} trigger={["click"]}>
           <Button icon={<ExportOutlined />}>
             <Space>
-              Экспорт
+              <span className={styles.buttonText}>Экспорт</span>
               <DownOutlined />
             </Space>
           </Button>
@@ -195,7 +231,7 @@ const RightPart: React.FC = observer(() => {
       <Dropdown menu={importMenuProps} trigger={["click"]}>
         <Button icon={<ImportOutlined />}>
           <Space>
-            Импорт
+            <span className={styles.buttonText}>Импорт</span>
             <DownOutlined />
           </Space>
         </Button>
@@ -205,7 +241,7 @@ const RightPart: React.FC = observer(() => {
         isOpen={isHelpModalOpen}
         onClose={() => setIsHelpModalOpen(false)}
       />
-      <FeedbackModal 
+      <FeedbackModal
         isOpen={isFeedbackModalOpen}
         onClose={() => setIsFeedbackModalOpen(false)}
       />

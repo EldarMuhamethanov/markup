@@ -1,6 +1,6 @@
 .header {
   height: 60px;
-  padding: 0 10px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,8 +15,39 @@
   font-family: var(--font-geist-mono);
   margin-bottom: 0;
   margin-top: 10px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .logo {
   margin-left: 30px;
+  @media (max-width: 768px) {
+    margin-left: 10px;
+  }
+}
+
+.desktopButtons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.mobileButtons {
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.buttonText {
+  @media (max-width: 480px) {
+    display: none;
+  }
 }

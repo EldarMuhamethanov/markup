@@ -3,6 +3,9 @@
   width: 100%;
   padding: 20px;
   background: #f8fafc;
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 }
 
 .editorsContainer {
@@ -10,6 +13,10 @@
   gap: 10px;
   height: 100%;
   position: relative;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 .editorSection {
@@ -20,6 +27,10 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   transition: width 0.1s ease;
   min-width: 300px;
+  @media (max-width: 768px) {
+    width: 100% !important;
+    height: 50vh;
+  }
 }
 
 .resizer {
@@ -29,6 +40,9 @@
   position: relative;
   margin: 0 -4px;
   z-index: 10;
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .resizer::after {
@@ -71,7 +85,7 @@
 }
 
 .dragging::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -85,7 +99,7 @@
 }
 
 .dragging::before {
-  content: 'Перетащите Markdown файл сюда';
+  content: "Перетащите Markdown файл сюда";
   position: absolute;
   top: 50%;
   left: 50%;

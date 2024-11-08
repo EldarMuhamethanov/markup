@@ -16,6 +16,7 @@ import { EmptyLayout } from "./EmptyLayout";
 import { Markdown } from "../../../markdown/view/Markdown";
 import { useMarkdownDragAndDrop } from "../../hooks/useMarkdownDragAndDrop";
 import { useResizer } from "../../hooks/useResizer";
+import { useHtmlElementEventHandler } from "@/core/hooks/useHtmlElementEventHandler";
 
 const MarkdownEditorLayout: React.FC = observer(() => {
   const contentState = selectedDocumentData.contentState;
@@ -32,6 +33,15 @@ const MarkdownEditorLayout: React.FC = observer(() => {
   const _setContentState: RichtextEditorProps["setContentState"] = (
     newContentState
   ) => selectedDocumentData.setContentState(newContentState);
+
+  useHtmlElementEventHandler("resize", window, () => {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      editorLayoutModel.setLeftPaneWidth(100);
+    } else {
+      editorLayoutModel.setLeftPaneWidth(50); // или другое значение по умолчанию
+    }
+  });
 
   return (
     <div
