@@ -7,6 +7,7 @@ import {
   FileMarkdownOutlined,
   FilePdfOutlined,
   Html5Outlined,
+  MessageOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Flex, MenuProps, Space, Tooltip } from "antd";
 import React, { useContext, useRef, useState } from "react";
@@ -21,6 +22,7 @@ import { useInputFile } from "../../../core/file/useInputFile";
 import { getHtmlWithRemappedImages } from "./getHtmlWithRemappedImages";
 import { GeneratePdfModalLoadingModal } from "./GeneratePdfModalLoadingModal";
 import { MarkdownHelpModal } from "./MarkdownHelpModal";
+import { FeedbackModal } from "./FeedbackModal";
 
 const exportItems: MenuProps["items"] = [
   {
@@ -54,6 +56,7 @@ const RightPart: React.FC = observer(() => {
   const { targetRef: pdfTargetRef } = useContext(PdfTargetContext);
   const [generatePdfModalOpened, setGeneratePdfModalOpened] = useState(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   const handleExportToMarkdown = (fileName: string) => {
     const markdownText = contentState && ContentState.getText(contentState);
@@ -170,6 +173,15 @@ const RightPart: React.FC = observer(() => {
           Справка по Markdown
         </Button>
       </Tooltip>
+      <Tooltip title="Оставить отзыв">
+        <Button
+            type="text"
+            icon={<MessageOutlined />}
+            onClick={() => setIsFeedbackModalOpen(true)}
+        >
+          Обратная связь
+        </Button>
+      </Tooltip>
       {contentState && (
         <Dropdown menu={exportMenuProps} trigger={["click"]}>
           <Button icon={<ExportOutlined />}>
@@ -192,6 +204,10 @@ const RightPart: React.FC = observer(() => {
       <MarkdownHelpModal
         isOpen={isHelpModalOpen}
         onClose={() => setIsHelpModalOpen(false)}
+      />
+      <FeedbackModal 
+        isOpen={isFeedbackModalOpen}
+        onClose={() => setIsFeedbackModalOpen(false)}
       />
     </Flex>
   );
