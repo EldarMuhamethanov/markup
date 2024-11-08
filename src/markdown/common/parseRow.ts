@@ -135,6 +135,9 @@ export const getRowParser = () => {
   };
 
   return (row: string): BlockData | null => {
+    if (!row.trim()) {
+      return null;
+    }
     if (checkHorizontalRule(row)) {
       resetTableState();
       return {
