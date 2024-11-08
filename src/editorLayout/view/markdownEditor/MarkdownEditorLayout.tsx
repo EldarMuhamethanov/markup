@@ -7,43 +7,39 @@ import {
 import { ContentState } from "../../../richtext/model/content/ContentState";
 import { EditorWrapper } from "./EditorWrapper";
 import { observer } from "mobx-react-lite";
-import { editorLayoutModel, selectedDocumentData } from "../../model/AppModel";
+import {
+  editorLayoutModel,
+  selectedDocumentData,
+  documentsMenuModel,
+} from "../../model/AppModel";
 import { EmptyLayout } from "./EmptyLayout";
 import { Markdown } from "../../../markdown/view/Markdown";
-import { useCallback } from "react";
+import { useMarkdownDragAndDrop } from "../../hooks/useMarkdownDragAndDrop";
+import { useResizer } from "../../hooks/useResizer";
 
 const MarkdownEditorLayout: React.FC = observer(() => {
   const contentState = selectedDocumentData.contentState;
   const contentStateCopy = contentState && ContentState.copy(contentState);
 
-  const handleResize = useCallback((e: MouseEvent) => {
-    const container = document.querySelector(`.${styles.editorsContainer}`);
-    if (!container) return;
+  const { isDragging, handleDragOver, handleDragLeave, handleDrop } =
+    useMarkdownDragAndDrop(documentsMenuModel);
 
-    const containerRect = container.getBoundingClientRect();
-    const newWidth =
-      ((e.clientX - containerRect.left) / containerRect.width) * 100;
-
-    const clampedWidth = Math.min(Math.max(newWidth, 20), 80);
-    editorLayoutModel.setLeftPaneWidth(clampedWidth);
-  }, []);
-
-  const startResize = useCallback(() => {
-    const stopResize = () => {
-      document.removeEventListener("mousemove", handleResize);
-      document.removeEventListener("mouseup", stopResize);
-    };
-
-    document.addEventListener("mousemove", handleResize);
-    document.addEventListener("mouseup", stopResize);
-  }, [handleResize]);
+  const { Resizer } = useResizer({
+    containerClassName: styles.editorsContainer,
+    onWidthChange: (width) => editorLayoutModel.setLeftPaneWidth(width),
+  });
 
   const _setContentState: RichtextEditorProps["setContentState"] = (
     newContentState
   ) => selectedDocumentData.setContentState(newContentState);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${isDragging ? styles.dragging : ""}`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       {!contentStateCopy && <EmptyLayout />}
       {contentStateCopy && (
         <div className={styles.editorsContainer}>
@@ -62,7 +58,7 @@ const MarkdownEditorLayout: React.FC = observer(() => {
               )}
             />
           </div>
-          <div className={styles.resizer} onMouseDown={startResize} />
+          <Resizer />
           <div
             className={styles.editorSection}
             style={{ width: `${100 - editorLayoutModel.leftPaneWidth}%` }}

@@ -65,3 +65,36 @@
     padding: 12px;
   }
 }
+
+.dragging {
+  position: relative;
+}
+
+.dragging::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px dashed #1890ff;
+  border-radius: 12px;
+  background: rgba(24, 144, 255, 0.1);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.dragging::before {
+  content: 'Перетащите Markdown файл сюда';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #1890ff;
+  z-index: 101;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px 24px;
+  border-radius: 8px;
+}

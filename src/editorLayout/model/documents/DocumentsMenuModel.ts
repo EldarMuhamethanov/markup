@@ -104,7 +104,7 @@ class DocumentsMenuModel {
     this._updateLocalStorageValues();
   }
 
-  createDocument(type: DocumentData["type"], name: string) {
+  createDocument(type: DocumentData["type"], name: string): string {
     const selectedDocumentId = this._selectedDocumentModel.selectedDocumentId;
     const selectedDocument =
       selectedDocumentId && getDocumentData(this.documents, selectedDocumentId);
@@ -137,7 +137,7 @@ class DocumentsMenuModel {
       selectedDocument.files.push(newDocument);
       this._selectedDocumentModel.setSelectedDocument(newDocument.id);
       this._updateLocalStorageValues();
-      return;
+      return newDocument.id;
     } else if (selectedDocument && selectedDocument.type === "file") {
       const selectedDocumentPath = this._getDocumentPath(selectedDocument.id);
       if (selectedDocumentPath.length) {
@@ -146,12 +146,13 @@ class DocumentsMenuModel {
         folder.files.push(newDocument);
         this._selectedDocumentModel.setSelectedDocument(newDocument.id);
         this._updateLocalStorageValues();
-        return;
+        return newDocument.id;
       }
     }
     this.documents.push(newDocument);
     this._selectedDocumentModel.setSelectedDocument(newDocument.id);
     this._updateLocalStorageValues();
+    return newDocument.id;
   }
 
   selectDocument(documentId: string) {
@@ -207,6 +208,20 @@ class DocumentsMenuModel {
 
   private _updateLocalStorageValues() {
     LocalStorage.setValue(STORAGE_KEYS.DOCUMENTS_DATA, this.documents);
+  }
+
+  importMarkdownFile(fileName: string, content: string) {
+    // Убираем расширение .md из имени файла
+    const name = fileName.replace(/\.md$/, "");
+
+    // Создаем новый документ
+    const documentId = this.createDocument("file", name);
+
+    // Устанавливаем содержимое файла
+    const contentState = ContentState.createByContent(content);
+    this._filesDataModel.setDocumentContentData(documentId, contentState);
+
+    this._updateLocalStorageValues();
   }
 }
 
