@@ -41,26 +41,50 @@ const switchParagraphType = (
   const prefix = prefixes.get(paragraphType);
   let offsetDiff = 0;
 
-  allSelectedBlocksKeys.forEach((blockKey, index) => {
-    const block = contentState.blockMap.blocks[blockKey];
+  const firstBlock = contentState.blockMap.blocks[allSelectedBlocksKeys[0]];
+  const isCodeBlock = firstBlock.text.startsWith("```");
 
-    if (paragraphType === "ordered-list-item") {
-      const numberedListRegex = /^\d+\.\s/;
-      if (numberedListRegex.test(block.text)) {
-        block.text = block.text.replace(numberedListRegex, "");
-        offsetDiff = -3;
-      } else {
-        block.text = `${index + 1}. ${block.text}`;
-        offsetDiff = 3;
-      }
-    } else if (prefix && block.text.startsWith(prefix)) {
-      block.text = block.text.substring(prefix.length).trimLeft();
-      offsetDiff = -(prefix.length + 1);
+  if (paragraphType === "code-block") {
+    if (isCodeBlock) {
+      allSelectedBlocksKeys.forEach((blockKey, index) => {
+        const block = contentState.blockMap.blocks[blockKey];
+        if (index === 0 || index === allSelectedBlocksKeys.length - 1) {
+          if (block.text === "```") {
+            block.text = "";
+          }
+        }
+      });
+      offsetDiff = -3;
     } else {
-      block.text = `${prefix} ${block.text}`;
-      offsetDiff = prefix?.length ? prefix.length + 1 : 0;
+      const firstBlock = contentState.blockMap.blocks[allSelectedBlocksKeys[0]];
+      const lastBlock = contentState.blockMap.blocks[allSelectedBlocksKeys[allSelectedBlocksKeys.length - 1]];
+      
+      firstBlock.text = "```\n" + firstBlock.text;
+      lastBlock.text = lastBlock.text + "\n```";
+      offsetDiff = 4;
     }
-  });
+  } else {
+    allSelectedBlocksKeys.forEach((blockKey, index) => {
+      const block = contentState.blockMap.blocks[blockKey];
+
+      if (paragraphType === "ordered-list-item") {
+        const numberedListRegex = /^\d+\.\s/;
+        if (numberedListRegex.test(block.text)) {
+          block.text = block.text.replace(numberedListRegex, "");
+          offsetDiff = -3;
+        } else {
+          block.text = `${index + 1}. ${block.text}`;
+          offsetDiff = 3;
+        }
+      } else if (prefix && block.text.startsWith(prefix)) {
+        block.text = block.text.substring(prefix.length).trimLeft();
+        offsetDiff = -(prefix.length + 1);
+      } else {
+        block.text = `${prefix} ${block.text}`;
+        offsetDiff = prefix?.length ? prefix.length + 1 : 0;
+      }
+    });
+  }
 
   return {
     selection: SelectionState.create({

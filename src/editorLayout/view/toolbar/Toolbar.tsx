@@ -137,7 +137,7 @@ const Toolbar: React.FC<IToolbarProps> = ({ operationHandler }) => {
   };
 
   return (
-    <div className={styles.toolbar}>
+    <div className={styles.toolbar} onMouseDown={e => e.preventDefault()}>
       <div className={styles.toolbarContent}>
         <Flex gap={5} wrap align="center">
           <Flex gap={5} align="center">

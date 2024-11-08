@@ -16,6 +16,22 @@ import { documentsMenuModel } from "@/editorLayout/model/AppModel";
 import { selectedDocumentData } from "@/editorLayout/model/AppModel";
 import type { MenuProps } from "antd";
 
+function filterDocuments(documents: DocumentData[], query: string): DocumentData[] {
+  return documents
+    .map((doc) => {
+      if (doc.type === "folder") {
+        const filteredFiles = filterDocuments(doc.files, query);
+        if (filteredFiles.length > 0 || doc.name.toLowerCase().includes(query)) {
+          return { ...doc, files: filteredFiles };
+        }
+      } else if (doc.name.toLowerCase().includes(query)) {
+        return doc;
+      }
+      return null;
+    })
+    .filter((doc) => doc !== null) as DocumentData[];
+}
+
 export const DocumentsMenu: React.FC = observer(() => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
@@ -44,66 +60,70 @@ export const DocumentsMenu: React.FC = observer(() => {
   const renderDocumentItems = (
     documents: DocumentData[]
   ): MenuProps["items"] => {
-    return documents
-      .filter((doc) =>
-        doc.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      .map((doc) => {
-        const contextMenu: MenuProps["items"] = [
-          {
-            key: "rename",
-            icon: <EditOutlined />,
-            label: "Переименовать",
-            onClick: () => {
-              Modal.confirm({
-                title: "Переименовать",
-                content: (
-                  <Input
-                    defaultValue={doc.name}
-                    onChange={(e) => setNewItemName(e.target.value)}
-                  />
-                ),
-                onOk: () =>
-                  documentsMenuModel.renameDocument(doc.id, newItemName),
-              });
-            },
+    const filteredDocuments = filterDocuments(documents, searchQuery.toLowerCase());
+    return filteredDocuments.map((doc) => {
+      const contextMenu: MenuProps["items"] = [
+        {
+          key: "rename",
+          icon: <EditOutlined />,
+          label: "Переименовать",
+          onClick: () => {
+            Modal.confirm({
+              title: "Переименовать",
+              content: (
+                <Input
+                  defaultValue={doc.name}
+                  onChange={(e) => setNewItemName(e.target.value)}
+                />
+              ),
+              onOk: () =>
+                documentsMenuModel.renameDocument(doc.id, newItemName),
+            });
           },
-          {
-            key: "delete",
-            icon: <DeleteOutlined />,
-            label: "Удалить",
-            danger: true,
-            onClick: () => {
-              Modal.confirm({
-                title: "Удалить",
-                content: `Вы уверены, что хотите удалить "${doc.name}"?`,
-                okText: "Удалить",
-                okType: "danger",
-                onOk: () => documentsMenuModel.removeDocument(doc.id),
-              });
-            },
+        },
+        {
+          key: "delete",
+          icon: <DeleteOutlined />,
+          label: "Удалить",
+          danger: true,
+          onClick: () => {
+            Modal.confirm({
+              title: "Удалить",
+              content: `Вы уверены, что хотите удалить "${doc.name}"?`,
+              okText: "Удалить",
+              okType: "danger",
+              onOk: () => documentsMenuModel.removeDocument(doc.id),
+            });
           },
-        ];
+        },
+      ];
 
-        if (doc.type === "folder") {
-          return {
-            key: doc.id,
-            label: doc.name,
-            icon: <FolderOutlined />,
-            children: renderDocumentItems(doc.files),
-            onContextMenu: (e: React.MouseEvent) => e.preventDefault(),
-            contextMenu,
-          };
-        }
-
+      if (doc.type === "folder") {
         return {
           key: doc.id,
           label: doc.name,
-          icon: <FileTextOutlined />,
-          onClick: () => documentsMenuModel.selectDocument(doc.id),
-          contextMenu,
+          icon: <FolderOutlined />,
+          children: renderDocumentItems(doc.files),
+          onMouseDown: (e: MouseEvent) => {
+            if (e.defaultPrevented) {
+              return;
+            }
+            e.preventDefault()
+            documentsMenuModel.selectDocument(doc.id)
+          },
         };
-      });
+      }
+
+      return {
+        key: doc.id,
+        label: doc.name,
+        icon: <FileTextOutlined />,
+        onMouseDown: (e: MouseEvent) => {
+          e.preventDefault()
+          documentsMenuModel.selectDocument(doc.id)
+        },
+      };
+    });
   };
 
   return (

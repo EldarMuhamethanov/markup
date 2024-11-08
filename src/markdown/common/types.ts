@@ -13,6 +13,7 @@ type OrderedListItemBlock = {
   type: "orderedListItem";
   text: string;
   level: number;
+  children?: OrderedListItemBlock[];
 };
 
 interface UnorderedListItemBlock {

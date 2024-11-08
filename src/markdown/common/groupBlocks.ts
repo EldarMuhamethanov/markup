@@ -29,74 +29,92 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
     }
   };
 
-  const appendUnorderedListGroup = () => {
-    if (currentUnorderedList) {
-      const rootItems: UnorderedListItemBlock[] = [];
-      const itemsByLevel: { [key: number]: UnorderedListItemBlock[] } = {};
-      
-      // Сначала группируем элементы по уровням
-      currentUnorderedList.forEach((item) => {
-        if (!itemsByLevel[item.level]) {
-          itemsByLevel[item.level] = [];
-        }
-        itemsByLevel[item.level].push({...item});
-      });
+  const appendListGroup = <
+    E extends "orderedList" | "unorderedList",
+    T extends E extends "orderedList" ? OrderedListItemBlock : UnorderedListItemBlock
+  >(
+    items: T[] | null,
+    type: E
+  ) => {
+    if (!items || items.length === 0) {
+      return items;
+    }
 
-      // Строим дерево, начиная с верхнего уровня
-      const levels = Object.keys(itemsByLevel).map(Number).sort((a, b) => a - b);
+    // Создаем корневой массив для элементов верхнего уровня
+    const rootItems: T[] = [];
+    
+    // Создаем копию массива для безопасной модификации
+    const workingItems = items.map(item => ({...item})) as T[];
+    
+    // Проходим по каждому элементу списка
+    workingItems.forEach((currentItem, index) => {
+      let parentFound = false;
       
-      // Добавляем элементы нулевого уровня в корень
-      if (itemsByLevel[0]) {
-        rootItems.push(...itemsByLevel[0]);
-      }
-
-      // Для каждого уровня, кроме нулевого, находим родителя
-      for (let i = 1; i < levels.length; i++) {
-        const currentLevel = levels[i];
-        const parentLevel = levels[i - 1];
+      // Идем в обратном порядке от текущего элемента
+      for (let j = index - 1; j >= 0; j--) {
+        const potentialParent = workingItems[j];
         
-        itemsByLevel[currentLevel].forEach((item) => {
-          // Ищем ближайший родительский элемент
-          const parentItems = itemsByLevel[parentLevel];
-          if (parentItems) {
-            const parentIndex = parentItems.length - 1;
-            while (parentIndex >= 0) {
-              const parent = parentItems[parentIndex];
-              if (!parent.children) {
-                parent.children = [];
-              }
-              parent.children.push(item);
+        if (potentialParent.level < currentItem.level) {
+          // Проверяем, что это ближайший по уровню родитель
+          let isClosestParent = true;
+          for (let k = j + 1; k < index; k++) {
+            if (workingItems[k].level < currentItem.level && 
+                workingItems[k].level > potentialParent.level) {
+              isClosestParent = false;
               break;
             }
           }
-        });
+          
+          if (isClosestParent) {
+            if (!potentialParent.children) {
+              potentialParent.children = [];
+            }
+            
+            // Явно приводим тип для children
+            if (type === "orderedList") {
+              (potentialParent.children as OrderedListItemBlock[]).push(currentItem as OrderedListItemBlock);
+            } else {
+              (potentialParent.children as UnorderedListItemBlock[]).push(currentItem as UnorderedListItemBlock);
+            }
+            
+            parentFound = true;
+            break;
+          }
+        }
       }
+      
+      if (!parentFound) {
+        rootItems.push(currentItem);
+      }
+    });
 
-      groups.push({
-        type: "unorderedList",
-        blocks: rootItems,
-      });
-      currentUnorderedList = null;
-    }
+    groups.push({
+      type,
+      blocks: rootItems,
+    } as GroupBlockData);
+    
+    return null;
+  };
+
+  const appendUnorderedListGroup = () => {
+    currentUnorderedList = appendListGroup(
+      currentUnorderedList,
+      "unorderedList"
+    );
   };
 
   const appendOrderedListGroup = () => {
-    if (currentOrderedList) {
-      groups.push({
-        type: "orderedList",
-        blocks: currentOrderedList,
-      });
-      currentOrderedList = null;
-    }
+    currentOrderedList = appendListGroup(currentOrderedList, "orderedList");
   };
 
   const appendQuoteGroup = () => {
     if (quoteList) {
       groups.push({
         type: "quote",
-        blocks: quoteList!.filter((block, index) => 
-          block.text !== "" || 
-          (index < quoteList!.length - 1 && quoteList![index + 1].text !== "")
+        blocks: quoteList!.filter(
+          (block, index) =>
+            block.text !== "" ||
+            (index < quoteList!.length - 1 && quoteList![index + 1].text !== "")
         ),
       });
       quoteList = null;
@@ -109,7 +127,7 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
         type: "table",
         headers: currentTableState.headerBlock.headers,
         alignments: currentTableState.headerBlock.alignments,
-        rows: currentTableState.rows
+        rows: currentTableState.rows,
       });
     }
     currentTableState = null;
@@ -160,7 +178,7 @@ export const groupBlocks = (blocks: BlockData[]): GroupBlockData[] => {
       appendTableGroup();
       currentTableState = {
         headerBlock: block,
-        rows: []
+        rows: [],
       };
       return;
     }
