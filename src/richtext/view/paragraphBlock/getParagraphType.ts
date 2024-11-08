@@ -8,12 +8,12 @@ type ParagraphType =
   | "code-block-close";
 
 const paragraphTypeToRegexMap: Map<ParagraphType, RegExp> = new Map([
-  ["header", /^(#{1,6}) /],
-  ["ordered-list-item", /^\d+\. /],
-  ["unordered-list-item", /^- /],
-  ["quote", /^> /],
-  ["code-block-open", /^```sh\s*$/],
-  ["code-block-close", /^```\s*$/],
+  ["header", /^\s*(#{1,6}) /],
+  ["ordered-list-item", /^\s*\d+\. /],
+  ["unordered-list-item", /^\s*- /],
+  ["quote", /^\s*> /],
+  ["code-block-open", /^\s*```sh\s*$/],
+  ["code-block-close", /^\s*```\s*$/],
   ["text", /.*/],
 ]);
 
