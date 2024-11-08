@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Content } from "antd/es/layout/layout";
 import { Layout } from "antd";
 import { MarkdownEditorLayout } from "./markdownEditor/MarkdownEditorLayout";
@@ -13,30 +13,33 @@ import {
   documentsMenuModel,
   filesDataModel,
   selectedDocumentData,
+  sidebarLayoutModel,
 } from "../model/AppModel";
 import { enablePatches } from "immer";
 import { editorLayoutModel } from "../model/AppModel";
+import { observer } from "mobx-react-lite";
 
-const EditorLayout: React.FC = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
+const EditorLayout: React.FC = observer(() => {
   useSingleLayoutEffect(() => {
     enablePatches();
     filesDataModel.init();
     selectedDocumentData.init();
     documentsMenuModel.init();
     editorLayoutModel.init();
+    sidebarLayoutModel.init();
   });
 
   return (
     <PdfTargetContext.Provider value={{ targetRef: { current: null } }}>
       <Layout className={styles.mainLayout}>
         <Header
-          sidebarCollapsed={sidebarCollapsed}
-          onSidebarCollapse={setSidebarCollapsed}
+          sidebarCollapsed={sidebarLayoutModel.isCollapsed}
+          onSidebarCollapse={(collapsed) =>
+            sidebarLayoutModel.setCollapsed(collapsed)
+          }
         />
         <Layout hasSider={true} className={styles.contentRow}>
-          <Sidebar collapsed={sidebarCollapsed} />
+          <Sidebar collapsed={sidebarLayoutModel.isCollapsed} />
           <Content>
             <MarkdownEditorLayout />
           </Content>
@@ -44,6 +47,6 @@ const EditorLayout: React.FC = () => {
       </Layout>
     </PdfTargetContext.Provider>
   );
-};
+});
 
 export { EditorLayout };

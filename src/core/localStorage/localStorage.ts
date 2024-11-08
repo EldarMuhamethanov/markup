@@ -3,7 +3,8 @@ type StorageKey =
   | "selectedDocumentId"
   | "documentsData"
   | "documentsContentData"
-  | "editorLeftPaneWidth";
+  | "editorLeftPaneWidth"
+  | "sidebarCollapsed";
 
 type StorageKeys = Record<string, StorageKey>;
 
@@ -13,6 +14,7 @@ const STORAGE_KEYS: StorageKeys = {
   DOCUMENTS_DATA: "documentsData",
   DOCUMENTS_CONTENT_DATA: "documentsContentData",
   EDITOR_LEFT_PANE_WIDTH: "editorLeftPaneWidth",
+  SIDEBAR_COLLAPSED_KEY: "sidebarCollapsed",
 };
 
 function setValue<T>(key: StorageKey, value: T) {
