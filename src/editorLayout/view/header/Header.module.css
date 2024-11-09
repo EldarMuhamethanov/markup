@@ -51,3 +51,13 @@
     display: none;
   }
 }
+
+.gdriveFileItem {
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+}
+
+.gdriveFileItem:hover {
+  background-color: #f5f5f5;
+}

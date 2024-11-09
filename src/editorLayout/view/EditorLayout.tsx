@@ -18,6 +18,7 @@ import {
 import { enablePatches } from "immer";
 import { editorLayoutModel } from "../model/AppModel";
 import { observer } from "mobx-react-lite";
+import { googleDriveApi } from '../../api/GoogleDriveApi';
 
 const EditorLayout: React.FC = observer(() => {
   useSingleLayoutEffect(() => {
@@ -27,6 +28,9 @@ const EditorLayout: React.FC = observer(() => {
     documentsMenuModel.init();
     editorLayoutModel.init();
     sidebarLayoutModel.init();
+    
+    // Инициализируем Google Drive API
+    googleDriveApi.init().catch(console.error);
   });
 
   return (

@@ -9,8 +9,9 @@ import {
   Html5Outlined,
   MessageOutlined,
   EllipsisOutlined,
+  GoogleOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Flex, MenuProps, Space, Tooltip } from "antd";
+import { Button, Dropdown, Flex, MenuProps, Space, Tooltip, Modal, List, message } from "antd";
 import React, { useContext, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { documentsMenuModel, selectedDocumentData } from "../../model/AppModel";
@@ -26,6 +27,7 @@ import { MarkdownHelpModal } from "./MarkdownHelpModal";
 import { FeedbackModal } from "./FeedbackModal";
 import styles from "./Header.module.css";
 import { htmlToMarkdown } from "../../../core/html/htmlToMarkdown";
+import { googleDriveApi } from '../../../api/GoogleDriveApi';
 
 const exportItems: MenuProps["items"] = [
   {
@@ -43,6 +45,11 @@ const exportItems: MenuProps["items"] = [
     key: "markdown",
     icon: <FileMarkdownOutlined />,
   },
+  {
+    label: "Google Drive",
+    key: "gdrive",
+    icon: <GoogleOutlined />,
+  },
 ];
 
 const importItems: MenuProps["items"] = [
@@ -55,6 +62,11 @@ const importItems: MenuProps["items"] = [
     label: "HTML",
     key: "html",
     icon: <Html5Outlined />,
+  },
+  {
+    label: "Google Drive",
+    key: "gdrive",
+    icon: <GoogleOutlined />,
   },
 ];
 
@@ -102,6 +114,20 @@ const RightPart: React.FC = observer(() => {
     setGeneratePdfModalOpened(false);
   };
 
+  const handleExportToGDrive = async (fileName: string) => {
+    try {
+      await googleDriveApi.authorize();
+      const markdownText = contentState && ContentState.getText(contentState);
+      if (markdownText) {
+        await googleDriveApi.uploadFile(fileName + '.md', markdownText);
+        message.success('Файл успешно экспортирован в Google Drive');
+      }
+    } catch (error) {
+      console.error('Ошибка экспорта в Google Drive:', error);
+      message.error('Ошибка экспорта в Google Drive');
+    }
+  };
+
   const handleExportMenuClick: MenuProps["onClick"] = async (e) => {
     const fileName = selectedDocumentData.fileName;
     if (!fileName) {
@@ -119,6 +145,10 @@ const RightPart: React.FC = observer(() => {
       case "pdf": {
         await handleExportToPDF(fileName);
       }
+      case "gdrive": {
+        await handleExportToGDrive(fileName);
+        break;
+      }
     }
   };
 
@@ -127,7 +157,7 @@ const RightPart: React.FC = observer(() => {
     onClick: handleExportMenuClick,
   };
 
-  const handleImportMenuClick: MenuProps["onClick"] = (e) => {
+  const handleImportMenuClick: MenuProps["onClick"] = async (e) => {
     switch (e.key) {
       case "markdown": {
         inputRef.current?.click();
@@ -135,6 +165,10 @@ const RightPart: React.FC = observer(() => {
       }
       case "html": {
         htmlInputRef.current?.click();
+        break;
+      }
+      case "gdrive": {
+        await handleImportFromGDrive();
         break;
       }
     }
@@ -167,6 +201,49 @@ const RightPart: React.FC = observer(() => {
       selectedDocumentData.setContentState(newContentState);
     }
   });
+
+  const handleImportFromGDrive = async () => {
+    try {
+      await googleDriveApi.authorize();
+      const files = await googleDriveApi.listFiles();
+      
+      if (files.length === 0) {
+        message.info('Нет доступных файлов в Google Drive');
+        return;
+      }
+
+      Modal.info({
+        title: 'Выберите файл для импорта',
+        content: (
+          <List
+            dataSource={files}
+            renderItem={(file) => (
+              <List.Item
+                className={styles.gdriveFileItem}
+                onClick={async () => {
+                  try {
+                    const { name, content } = await googleDriveApi.downloadFile(file.id);
+                    documentsMenuModel.importMarkdownFile(name, content);
+                    message.success('Файл успешно импортирован');
+                    Modal.destroyAll();
+                  } catch (error) {
+                    console.error('Ошибка импорта файла:', error);
+                    message.error('Ошибка импорта файла');
+                  }
+                }}
+              >
+                {file.name}
+              </List.Item>
+            )}
+          />
+        ),
+        width: 400,
+      });
+    } catch (error) {
+      console.error('Ошибка импорта из Google Drive:', error);
+      message.error('Ошибка импорта из Google Drive');
+    }
+  };
 
   const moreMenuItems: MenuProps["items"] = [
     {
