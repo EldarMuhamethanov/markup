@@ -4,6 +4,7 @@ import { EditorHeader } from "./EditorHeader";
 
 interface EditorWrapperProps {
   header: string;
+  documentName?: string;
   getContent: (wrapperRef: RefObject<HTMLDivElement | null>) => ReactNode;
   isFullscreen: boolean;
   onFullscreenToggle: () => void;
@@ -11,6 +12,7 @@ interface EditorWrapperProps {
 
 const EditorWrapper = ({
   header,
+  documentName,
   getContent,
   isFullscreen,
   onFullscreenToggle,
@@ -22,6 +24,7 @@ const EditorWrapper = ({
       <div className={styles.headerContainer}>
         <EditorHeader
           title={header}
+          documentName={documentName}
           isFullscreen={isFullscreen}
           onFullscreenToggle={onFullscreenToggle}
         />

@@ -86,7 +86,8 @@ const MarkdownEditorLayout: React.FC = observer(() => {
               }}
             >
               <EditorWrapper
-                header={"Markdown"}
+                header={"Редактор"}
+                documentName={selectedDocumentData.fileName || undefined}
                 isFullscreen={editorLayoutModel.fullscreenPane === "left"}
                 onFullscreenToggle={handleLeftPaneFullscreen}
                 getContent={(wrapperRef) => (
@@ -112,6 +113,7 @@ const MarkdownEditorLayout: React.FC = observer(() => {
             >
               <EditorWrapper
                 header={"Предпросмотр"}
+                documentName={selectedDocumentData.fileName || undefined}
                 isFullscreen={editorLayoutModel.fullscreenPane === "right"}
                 onFullscreenToggle={handleRightPaneFullscreen}
                 getContent={() => (
