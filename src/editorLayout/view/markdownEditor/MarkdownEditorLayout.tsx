@@ -74,7 +74,9 @@ const MarkdownEditorLayout: React.FC = observer(() => {
           {editorLayoutModel.fullscreenPane !== "right" && (
             <div
               className={`${styles.editorSection} ${
-                editorLayoutModel.fullscreenPane === "left" ? styles.fullscreen : ""
+                editorLayoutModel.fullscreenPane === "left"
+                  ? styles.fullscreen
+                  : ""
               }`}
               style={{
                 width:
@@ -100,9 +102,7 @@ const MarkdownEditorLayout: React.FC = observer(() => {
           {!editorLayoutModel.fullscreenPane && <Resizer />}
           {editorLayoutModel.fullscreenPane !== "left" && (
             <div
-              className={`${styles.editorSection} ${
-                editorLayoutModel.fullscreenPane === "right" ? styles.fullscreen : ""
-              }`}
+              className={styles.editorSection}
               style={{
                 width:
                   editorLayoutModel.fullscreenPane === "right"

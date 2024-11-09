@@ -25,6 +25,7 @@ import { GeneratePdfModalLoadingModal } from "./GeneratePdfModalLoadingModal";
 import { MarkdownHelpModal } from "./MarkdownHelpModal";
 import { FeedbackModal } from "./FeedbackModal";
 import styles from "./Header.module.css";
+import { htmlToMarkdown } from "../../../core/html/htmlToMarkdown";
 
 const exportItems: MenuProps["items"] = [
   {
@@ -50,6 +51,11 @@ const importItems: MenuProps["items"] = [
     key: "markdown",
     icon: <FileMarkdownOutlined />,
   },
+  {
+    label: "HTML",
+    key: "html",
+    icon: <Html5Outlined />,
+  },
 ];
 
 const RightPart: React.FC = observer(() => {
@@ -59,6 +65,7 @@ const RightPart: React.FC = observer(() => {
   const [generatePdfModalOpened, setGeneratePdfModalOpened] = useState(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const htmlInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleExportToMarkdown = (fileName: string) => {
     const markdownText = contentState && ContentState.getText(contentState);
@@ -126,6 +133,10 @@ const RightPart: React.FC = observer(() => {
         inputRef.current?.click();
         break;
       }
+      case "html": {
+        htmlInputRef.current?.click();
+        break;
+      }
     }
   };
 
@@ -140,6 +151,19 @@ const RightPart: React.FC = observer(() => {
       selectedDocumentData.setContentState(newContentState);
     } else {
       documentsMenuModel.createDocument("file", fileName);
+      selectedDocumentData.setContentState(newContentState);
+    }
+  });
+
+  useInputFile(htmlInputRef, (content, fileName) => {
+    const markdownContent = htmlToMarkdown(content);
+    const newContentState = ContentState.createByContent(markdownContent);
+    
+    if (contentState) {
+      selectedDocumentData.setContentState(newContentState);
+    } else {
+      const cleanFileName = fileName.replace(/\.html?$/, "");
+      documentsMenuModel.createDocument("file", cleanFileName);
       selectedDocumentData.setContentState(newContentState);
     }
   });
@@ -173,6 +197,15 @@ const RightPart: React.FC = observer(() => {
         type={"file"}
         accept={".md"}
         aria-label="Импорт Markdown файла"
+        style={{
+          display: "none",
+        }}
+      />
+      <input
+        ref={htmlInputRef}
+        type={"file"}
+        accept={".html,.htm"}
+        aria-label="Импорт HTML файла"
         style={{
           display: "none",
         }}
