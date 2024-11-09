@@ -136,6 +136,28 @@ const MarkdownHelpModal: React.FC<MarkdownHelpModalProps> = ({ isOpen, onClose }
             <Text type="secondary">→ Изображение</Text>
           </div>
         </section>
+
+        <Divider />
+
+        <section>
+          <Title level={4}>Сноски</Title>
+          <div className={styles.example}>
+            <div>
+              <Text>Текст с сноской[^1]</Text>
+              <br />
+              <Text>[^1]: Содержание сноски</Text>
+            </div>
+            <Text type="secondary">→ Текст с сноской<sup>1</sup></Text>
+          </div>
+          <div className={styles.example}>
+            <Text>Можно использовать [^метка] с любым текстом</Text>
+            <Text type="secondary">→ Идентификатор сноски может быть любым текстом</Text>
+          </div>
+          <div className={styles.example}>
+            <Text>[^метка]: Сноски отображаются в конце документа</Text>
+            <Text type="secondary">→ Определение сноски можно разместить в любом месте</Text>
+          </div>
+        </section>
       </div>
     </Modal>
   );
