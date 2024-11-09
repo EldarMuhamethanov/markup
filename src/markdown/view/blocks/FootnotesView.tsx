@@ -1,6 +1,5 @@
 import React from "react";
 import { FootnoteDefinitionBlock } from "../../common/types";
-import { useParseBlockContent } from "../../common/hooks/useParseBlockContent";
 
 interface FootnotesViewProps {
   footnotes: FootnoteDefinitionBlock[];
@@ -15,10 +14,7 @@ export const FootnotesView: React.FC<FootnotesViewProps> = ({ footnotes }) => {
       <div className="footnotes">
         {footnotes.map((footnote) => (
           <div key={footnote.id} className="footnote-item">
-            <div
-              id={`footnote-${footnote.id}`}
-              className="footnote-content"
-            >
+            <div id={`footnote-${footnote.id}`} className="footnote-content">
               <sup>{footnote.id}</sup>{" "}
               <span dangerouslySetInnerHTML={{ __html: footnote.content }} />
               <a
@@ -34,4 +30,4 @@ export const FootnotesView: React.FC<FootnotesViewProps> = ({ footnotes }) => {
       </div>
     </div>
   );
-}; 
+};
