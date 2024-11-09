@@ -3,6 +3,7 @@ import { LocalStorage, STORAGE_KEYS } from "../../../core/localStorage/localStor
 
 export class EditorLayoutModel {
   private _leftPaneWidth: number = 50;
+  private _fullscreenPane: 'left' | 'right' | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -26,5 +27,13 @@ export class EditorLayoutModel {
 
   private saveToLocalStorage() {
     LocalStorage.setValue(STORAGE_KEYS.EDITOR_LEFT_PANE_WIDTH, this._leftPaneWidth);
+  }
+
+  get fullscreenPane() {
+    return this._fullscreenPane;
+  }
+
+  setFullscreenPane(pane: 'left' | 'right' | null) {
+    this._fullscreenPane = pane;
   }
 } 

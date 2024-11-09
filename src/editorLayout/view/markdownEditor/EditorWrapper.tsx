@@ -5,15 +5,26 @@ import { EditorHeader } from "./EditorHeader";
 interface EditorWrapperProps {
   header: string;
   getContent: (wrapperRef: RefObject<HTMLDivElement | null>) => ReactNode;
+  isFullscreen: boolean;
+  onFullscreenToggle: () => void;
 }
 
-const EditorWrapper = ({ header, getContent }: EditorWrapperProps) => {
+const EditorWrapper = ({
+  header,
+  getContent,
+  isFullscreen,
+  onFullscreenToggle,
+}: EditorWrapperProps) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
       <div className={styles.headerContainer}>
-        <EditorHeader title={header} />
+        <EditorHeader
+          title={header}
+          isFullscreen={isFullscreen}
+          onFullscreenToggle={onFullscreenToggle}
+        />
         <div className={styles.headerDivider} />
       </div>
       <div className={styles.contentContainer}>{getContent(wrapperRef)}</div>

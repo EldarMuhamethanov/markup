@@ -1,8 +1,9 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 45px;
-  border: 1px solid #e8e8e8;
+  padding: 0 16px;
 }
 
 .title {

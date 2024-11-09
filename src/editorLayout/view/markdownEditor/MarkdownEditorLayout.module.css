@@ -25,11 +25,15 @@
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: width 0.1s ease;
+  transition: all 0.3s ease;
   min-width: 300px;
   @media (max-width: 768px) {
     width: 100% !important;
     height: 50vh;
+
+    &.fullscreen {
+      height: calc(100vh - 140px); /* Учитываем отступы и высоту хедера */
+    }
   }
 }
 

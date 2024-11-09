@@ -49,6 +49,18 @@ const MarkdownEditorLayout: React.FC = observer(() => {
     }
   );
 
+  const handleLeftPaneFullscreen = () => {
+    editorLayoutModel.setFullscreenPane(
+      editorLayoutModel.fullscreenPane === "left" ? null : "left"
+    );
+  };
+
+  const handleRightPaneFullscreen = () => {
+    editorLayoutModel.setFullscreenPane(
+      editorLayoutModel.fullscreenPane === "right" ? null : "right"
+    );
+  };
+
   return (
     <div
       className={`${styles.container} ${isDragging ? styles.dragging : ""}`}
@@ -59,33 +71,55 @@ const MarkdownEditorLayout: React.FC = observer(() => {
       {!contentStateCopy && <EmptyLayout />}
       {contentStateCopy && (
         <div className={styles.editorsContainer}>
-          <div
-            className={styles.editorSection}
-            style={{ width: `${editorLayoutModel.leftPaneWidth}%` }}
-          >
-            <EditorWrapper
-              header={"Markdown"}
-              getContent={(wrapperRef) => (
-                <RichtextEditor
-                  containerRef={wrapperRef}
-                  contentState={contentStateCopy}
-                  setContentState={_setContentState}
-                />
-              )}
-            />
-          </div>
-          <Resizer />
-          <div
-            className={styles.editorSection}
-            style={{ width: `${100 - editorLayoutModel.leftPaneWidth}%` }}
-          >
-            <EditorWrapper
-              header={"Предпросмотр"}
-              getContent={() => (
-                <Markdown text={ContentState.getText(contentStateCopy)} />
-              )}
-            />
-          </div>
+          {editorLayoutModel.fullscreenPane !== "right" && (
+            <div
+              className={`${styles.editorSection} ${
+                editorLayoutModel.fullscreenPane === "left" ? styles.fullscreen : ""
+              }`}
+              style={{
+                width:
+                  editorLayoutModel.fullscreenPane === "left"
+                    ? "100%"
+                    : `${editorLayoutModel.leftPaneWidth}%`,
+              }}
+            >
+              <EditorWrapper
+                header={"Markdown"}
+                isFullscreen={editorLayoutModel.fullscreenPane === "left"}
+                onFullscreenToggle={handleLeftPaneFullscreen}
+                getContent={(wrapperRef) => (
+                  <RichtextEditor
+                    containerRef={wrapperRef}
+                    contentState={contentStateCopy}
+                    setContentState={_setContentState}
+                  />
+                )}
+              />
+            </div>
+          )}
+          {!editorLayoutModel.fullscreenPane && <Resizer />}
+          {editorLayoutModel.fullscreenPane !== "left" && (
+            <div
+              className={`${styles.editorSection} ${
+                editorLayoutModel.fullscreenPane === "right" ? styles.fullscreen : ""
+              }`}
+              style={{
+                width:
+                  editorLayoutModel.fullscreenPane === "right"
+                    ? "100%"
+                    : `${100 - editorLayoutModel.leftPaneWidth}%`,
+              }}
+            >
+              <EditorWrapper
+                header={"Предпросмотр"}
+                isFullscreen={editorLayoutModel.fullscreenPane === "right"}
+                onFullscreenToggle={handleRightPaneFullscreen}
+                getContent={() => (
+                  <Markdown text={ContentState.getText(contentStateCopy)} />
+                )}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
