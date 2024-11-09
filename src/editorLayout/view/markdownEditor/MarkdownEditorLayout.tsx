@@ -19,6 +19,7 @@ import { Markdown } from "../../../markdown/view/Markdown";
 import { useMarkdownDragAndDrop } from "../../hooks/useMarkdownDragAndDrop";
 import { useResizer } from "../../hooks/useResizer";
 import { useHtmlElementEventHandler } from "@/core/hooks/useHtmlElementEventHandler";
+import classNames from "classnames";
 
 const MarkdownEditorLayout: React.FC = observer(() => {
   const contentState = selectedDocumentData.contentState;
@@ -73,11 +74,10 @@ const MarkdownEditorLayout: React.FC = observer(() => {
         <div className={styles.editorsContainer}>
           {editorLayoutModel.fullscreenPane !== "right" && (
             <div
-              className={`${styles.editorSection} ${
-                editorLayoutModel.fullscreenPane === "left"
-                  ? styles.fullscreen
-                  : ""
-              }`}
+              className={classNames(
+                styles.editorSection,
+                editorLayoutModel.fullscreenPane === "left" && styles.fullscreen
+              )}
               style={{
                 width:
                   editorLayoutModel.fullscreenPane === "left"
@@ -103,7 +103,11 @@ const MarkdownEditorLayout: React.FC = observer(() => {
           {!editorLayoutModel.fullscreenPane && <Resizer />}
           {editorLayoutModel.fullscreenPane !== "left" && (
             <div
-              className={styles.editorSection}
+              className={classNames(
+                styles.editorSection,
+                editorLayoutModel.fullscreenPane === "right" &&
+                  styles.fullscreen
+              )}
               style={{
                 width:
                   editorLayoutModel.fullscreenPane === "right"
