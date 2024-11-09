@@ -7,6 +7,7 @@ import {
   TableBlock,
   TableHeaderBlock,
   UnorderedListItemBlock,
+  FootnoteDefinitionBlock,
 } from "./types";
 
 const checkHeader = (row: string): HeaderBlock | null => {
@@ -114,6 +115,20 @@ const checkHorizontalRule = (row: string): boolean => {
   return !!row.match(/^\*{3,}\s*$/);
 };
 
+const checkFootnoteDefinition = (
+  row: string
+): FootnoteDefinitionBlock | null => {
+  const match = row.match(/^\[\^(.+?)\]:\s*(.+)$/);
+  if (match && match[1] && match[2]) {
+    return {
+      type: "footnoteDefinition",
+      id: match[1],
+      content: match[2].trim(),
+    };
+  }
+  return null;
+};
+
 export const getRowParser = () => {
   let codeBlockOpened = false;
   let tableState: {
@@ -138,6 +153,12 @@ export const getRowParser = () => {
     if (!row.trim()) {
       return null;
     }
+
+    const footnoteDefinition = checkFootnoteDefinition(row);
+    if (footnoteDefinition) {
+      return footnoteDefinition;
+    }
+
     if (checkHorizontalRule(row)) {
       resetTableState();
       return {

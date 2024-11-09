@@ -59,6 +59,18 @@ type HorizontalRuleBlock = {
   type: "horizontalRule";
 };
 
+type FootnoteReferenceBlock = {
+  type: "footnoteReference";
+  id: string;
+  text: string;
+};
+
+type FootnoteDefinitionBlock = {
+  type: "footnoteDefinition";
+  id: string;
+  content: string;
+};
+
 type BlockData =
   | HeaderBlock
   | OrderedListItemBlock
@@ -67,7 +79,9 @@ type BlockData =
   | CodeBlock
   | TableBlock
   | PlainTextBlock
-  | HorizontalRuleBlock;
+  | HorizontalRuleBlock
+  | FootnoteReferenceBlock
+  | FootnoteDefinitionBlock;
 
 type DefaultGroup = {
   type: "default";
@@ -132,4 +146,6 @@ export type {
   TableRowBlock,
   HorizontalRuleBlock,
   TableAlignment,
+  FootnoteReferenceBlock,
+  FootnoteDefinitionBlock,
 };

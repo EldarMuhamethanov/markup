@@ -151,6 +151,29 @@ const processHyperlink = (
   return { captured: false, result: "", remainingSource: source };
 };
 
+// Изменяем регулярное выражение для сносок
+const footnoteReferenceRegex = /^\[\^([^\]]+)\]/;
+
+// Обновляем функцию обработки сносок
+const processFootnoteReference = (
+  source: string
+): {
+  captured: boolean;
+  result: string;
+  remainingSource: string;
+} => {
+  const match = source.match(footnoteReferenceRegex);
+  if (match) {
+    const id = match[1];
+    return {
+      captured: true,
+      result: `<sup><a href="#footnote-${id}" id="footnote-ref-${id}" class="footnote-reference">${id}</a></sup>`,
+      remainingSource: source.slice(match[0].length),
+    };
+  }
+  return { captured: false, result: "", remainingSource: source };
+};
+
 // Main function
 function getStyledRow(str: string, withImages = false): string {
   let res = "";
@@ -196,6 +219,20 @@ function getStyledRow(str: string, withImages = false): string {
         remainingSource,
       } = processHyperlink(source);
       if (linkCaptured) {
+        captured = true;
+        res += result;
+        source = remainingSource;
+      }
+    }
+
+    // Process footnote references
+    if (!captured) {
+      const {
+        captured: footnoteCaptured,
+        result,
+        remainingSource,
+      } = processFootnoteReference(source);
+      if (footnoteCaptured) {
         captured = true;
         res += result;
         source = remainingSource;

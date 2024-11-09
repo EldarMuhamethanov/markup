@@ -114,7 +114,6 @@ export const markdownStyles = `
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-  margin: 20px 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -137,5 +136,47 @@ export const markdownStyles = `
   background: linear-gradient(to right, transparent, #e5e7eb, transparent);
   margin: 32px 0;
 }
-...
+
+/* Добавляем стили для сносок */
+.markdown-footnotes {
+  margin-top: 32px;
+  font-size: 0.9em;
+  color: #4b5563;
+}
+
+.markdown-footnotes hr {
+  margin: 24px 0;
+  border: 0;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.footnote-item {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.footnote-content {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.footnote-reference {
+  color: #6366f1;
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+.footnote-backref {
+  margin-left: 4px;
+  color: #6366f1;
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+.footnote-backref:hover {
+  text-decoration: underline;
+}
+
 `;
