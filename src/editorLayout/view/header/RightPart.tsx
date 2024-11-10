@@ -11,7 +11,15 @@ import {
   EllipsisOutlined,
   GoogleOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Flex, MenuProps, Space, Tooltip, Modal, List, message } from "antd";
+import {
+  Button,
+  Dropdown,
+  Flex,
+  MenuProps,
+  Space,
+  Tooltip,
+  message,
+} from "antd";
 import React, { useContext, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { documentsMenuModel, selectedDocumentData } from "../../model/AppModel";
@@ -27,7 +35,7 @@ import { MarkdownHelpModal } from "./MarkdownHelpModal";
 import { FeedbackModal } from "./FeedbackModal";
 import styles from "./Header.module.css";
 import { htmlToMarkdown } from "../../../core/html/htmlToMarkdown";
-import { googleDriveApi } from '../../../api/GoogleDriveApi';
+import { googleDriveApi } from "../../../api/GoogleDriveApi";
 
 const exportItems: MenuProps["items"] = [
   {
@@ -116,15 +124,35 @@ const RightPart: React.FC = observer(() => {
 
   const handleExportToGDrive = async (fileName: string) => {
     try {
-      await googleDriveApi.authorize();
       const markdownText = contentState && ContentState.getText(contentState);
       if (markdownText) {
-        await googleDriveApi.uploadFile(fileName + '.md', markdownText);
-        message.success('Файл успешно экспортирован в Google Drive');
+        const result = await googleDriveApi.showPicker("export");
+
+        if (!result) return;
+
+        if (result.action === "picked") {
+          if (!result.folderId) {
+            message.info(
+              "Папка не выбрана. Выберите папку для сохранения или нажмите 'Отмена' для сохранения в корень"
+            );
+            return;
+          }
+          await googleDriveApi.uploadFile(
+            fileName + ".md",
+            markdownText,
+            result.folderId
+          );
+          message.success(
+            "Файл успешно экспортирован в выбранную папку Google Drive"
+          );
+        } else if (result.action === "cancelled") {
+          await googleDriveApi.uploadFile(fileName + ".md", markdownText);
+          message.success("Файл успешно экспортирован в корень Google Drive");
+        }
       }
     } catch (error) {
-      console.error('Ошибка экспорта в Google Drive:', error);
-      message.error('Ошибка экспорта в Google Drive');
+      console.error("Ошибка экспорта в Google Drive:", error);
+      message.error("Ошибка экспорта в Google Drive");
     }
   };
 
@@ -181,67 +209,29 @@ const RightPart: React.FC = observer(() => {
 
   useInputFile(inputRef, (content, fileName) => {
     const newContentState = ContentState.createByContent(content);
-    if (contentState) {
-      selectedDocumentData.setContentState(newContentState);
-    } else {
-      documentsMenuModel.createDocument("file", fileName);
-      selectedDocumentData.setContentState(newContentState);
-    }
+    documentsMenuModel.createDocument("file", fileName);
+    selectedDocumentData.setContentState(newContentState);
   });
 
   useInputFile(htmlInputRef, (content, fileName) => {
     const markdownContent = htmlToMarkdown(content);
     const newContentState = ContentState.createByContent(markdownContent);
-    
-    if (contentState) {
-      selectedDocumentData.setContentState(newContentState);
-    } else {
-      const cleanFileName = fileName.replace(/\.html?$/, "");
-      documentsMenuModel.createDocument("file", cleanFileName);
-      selectedDocumentData.setContentState(newContentState);
-    }
+
+    const cleanFileName = fileName.replace(/\.html?$/, "");
+    documentsMenuModel.createDocument("file", cleanFileName);
+    selectedDocumentData.setContentState(newContentState);
   });
 
   const handleImportFromGDrive = async () => {
     try {
-      await googleDriveApi.authorize();
-      const files = await googleDriveApi.listFiles();
-      
-      if (files.length === 0) {
-        message.info('Нет доступных файлов в Google Drive');
-        return;
+      const result = await googleDriveApi.showPicker("import");
+      if (result) {
+        const { name, content } = result;
+        documentsMenuModel.importMarkdownFile(name, content);
+        message.success("Файл успешно импортирован");
       }
-
-      Modal.info({
-        title: 'Выберите файл для импорта',
-        content: (
-          <List
-            dataSource={files}
-            renderItem={(file) => (
-              <List.Item
-                className={styles.gdriveFileItem}
-                onClick={async () => {
-                  try {
-                    const { name, content } = await googleDriveApi.downloadFile(file.id);
-                    documentsMenuModel.importMarkdownFile(name, content);
-                    message.success('Файл успешно импортирован');
-                    Modal.destroyAll();
-                  } catch (error) {
-                    console.error('Ошибка импорта файла:', error);
-                    message.error('Ошибка импорта файла');
-                  }
-                }}
-              >
-                {file.name}
-              </List.Item>
-            )}
-          />
-        ),
-        width: 400,
-      });
     } catch (error) {
-      console.error('Ошибка импорта из Google Drive:', error);
-      message.error('Ошибка импорта из Google Drive');
+      console.error("Ошибка импорта из Google Drive:", error);
     }
   };
 
