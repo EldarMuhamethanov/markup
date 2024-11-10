@@ -1,6 +1,6 @@
 import { Button, Dropdown, Space } from "antd";
 import { DownOutlined, ExportOutlined } from "@ant-design/icons";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { exportItems } from "../constants/menuItems";
 import { useExportHandlers } from "../../../hooks/useExportHandlers";
 import styles from "../Header.module.css";
@@ -8,17 +8,17 @@ import { PdfTargetContext } from "../../padConvertation/PdfTargetContext";
 import { ContentStateData } from "../../../../richtext/model/content/ContentState";
 import { selectedDocumentData } from "../../../model/AppModel";
 import { MenuProps } from "antd";
+import { GeneratePdfModalLoadingModal } from "../GeneratePdfModalLoadingModal";
 
 interface ExportSectionProps {
   contentState: ContentStateData | null;
-  setGeneratePdfModalOpened: (value: boolean) => void;
 }
 
 export const ExportSection: React.FC<ExportSectionProps> = ({
   contentState,
-  setGeneratePdfModalOpened,
 }) => {
   const { targetRef: pdfTargetRef } = useContext(PdfTargetContext);
+  const [generatePdfModalOpened, setGeneratePdfModalOpened] = useState(false);
 
   const {
     handleExportToMarkdown,
@@ -44,16 +44,19 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
   if (!contentState) return null;
 
   return (
-    <Dropdown
-      menu={{ items: exportItems, onClick: handleExportMenuClick }}
-      trigger={["click"]}
-    >
-      <Button icon={<ExportOutlined />}>
-        <Space>
-          <span className={styles.buttonText}>Экспорт</span>
-          <DownOutlined />
-        </Space>
-      </Button>
-    </Dropdown>
+    <>
+      <Dropdown
+        menu={{ items: exportItems, onClick: handleExportMenuClick }}
+        trigger={["click"]}
+      >
+        <Button icon={<ExportOutlined />}>
+          <Space>
+            <span className={styles.buttonText}>Экспорт</span>
+            <DownOutlined />
+          </Space>
+        </Button>
+      </Dropdown>
+      <GeneratePdfModalLoadingModal isOpen={generatePdfModalOpened} />
+    </>
   );
 };
