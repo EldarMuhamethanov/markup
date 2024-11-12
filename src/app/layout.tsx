@@ -3,9 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import React from "react";
 
-const keywords =
-  "smart contracts, ethereum, blockchain, web3, dapp, decentralized application, smart contract interaction, ethereum network, blockchain platform, cryptocurrency, ETH, smart portal, smart contract deployment, blockchain technology, ethereum wallet, web3 integration, smart contract development, blockchain interface, decentralized finance, DeFi, ethereum transactions, gas fees, metamask, ethereum blockchain, smart contract security, blockchain explorer, ethereum smart contracts, crypto wallet, blockchain platform, digital assets, cryptocurrency exchange, blockchain development, smart contract audit, ethereum mining, blockchain solutions, crypto payments, blockchain infrastructure, smart contract platform, ethereum ecosystem, blockchain technology, decentralized network, crypto trading, blockchain security, smart contract tools, ethereum development, blockchain applications, crypto investment, smart contract management, blockchain protocol, ethereum mining, digital currency, cryptocurrency wallet, blockchain consulting";
-
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -18,14 +15,26 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "MarkUp",
-  description: "MarkUp - online markdown editor",
+  title: "MarkUp - Ваш лучший Markdown редактор",
+  description: "MarkUp - это современный онлайн редактор Markdown, который позволяет легко создавать и редактировать документы. Поддержка автосохранения, импорт/экспорт и многое другое.",
   authors: {
     url: "https://github.com/EldarMuhamethanov",
     name: "EldarMuhamethanov",
   },
   robots: "index, follow",
-  keywords,
+  keywords: "Markdown, редактор, онлайн, автосохранение, импорт, экспорт, документация",
+  openGraph: {
+    type: "website",
+    url: "https://ваш-сайт.com",
+    title: "MarkUp - Ваш лучший Markdown редактор",
+    description: "Создавайте и редактируйте Markdown документы с легкостью.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@ваш_твиттер",
+    title: "MarkUp - Ваш лучший Markdown редактор",
+    description: "Создавайте и редактируйте Markdown документы с легкостью.",
+  },
 };
 
 export default function RootLayout({
