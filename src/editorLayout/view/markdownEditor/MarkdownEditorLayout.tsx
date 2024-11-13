@@ -72,60 +72,57 @@ const MarkdownEditorLayout: React.FC = observer(() => {
       {!contentStateCopy && <EmptyLayout />}
       {contentStateCopy && (
         <div className={styles.editorsContainer}>
-          {editorLayoutModel.fullscreenPane !== "right" && (
-            <div
-              className={classNames(
-                styles.editorSection,
-                editorLayoutModel.fullscreenPane === "left" && styles.fullscreen
+          <div
+            className={classNames(
+              styles.editorSection,
+              editorLayoutModel.fullscreenPane === "left" && styles.fullscreen,
+              editorLayoutModel.fullscreenPane === "right" && styles.hidden
+            )}
+            style={{
+              width:
+                editorLayoutModel.fullscreenPane === "left"
+                  ? "100%"
+                  : `${editorLayoutModel.leftPaneWidth}%`,
+            }}
+          >
+            <EditorWrapper
+              header={"Редактор"}
+              documentName={selectedDocumentData.fileName || undefined}
+              isFullscreen={editorLayoutModel.fullscreenPane === "left"}
+              onFullscreenToggle={handleLeftPaneFullscreen}
+              getContent={(wrapperRef) => (
+                <RichtextEditor
+                  containerRef={wrapperRef}
+                  contentState={contentStateCopy}
+                  setContentState={_setContentState}
+                />
               )}
-              style={{
-                width:
-                  editorLayoutModel.fullscreenPane === "left"
-                    ? "100%"
-                    : `${editorLayoutModel.leftPaneWidth}%`,
-              }}
-            >
-              <EditorWrapper
-                header={"Редактор"}
-                documentName={selectedDocumentData.fileName || undefined}
-                isFullscreen={editorLayoutModel.fullscreenPane === "left"}
-                onFullscreenToggle={handleLeftPaneFullscreen}
-                getContent={(wrapperRef) => (
-                  <RichtextEditor
-                    containerRef={wrapperRef}
-                    contentState={contentStateCopy}
-                    setContentState={_setContentState}
-                  />
-                )}
-              />
-            </div>
-          )}
+            />
+          </div>
           {!editorLayoutModel.fullscreenPane && <Resizer />}
-          {editorLayoutModel.fullscreenPane !== "left" && (
-            <div
-              className={classNames(
-                styles.editorSection,
-                editorLayoutModel.fullscreenPane === "right" &&
-                  styles.fullscreen
+          <div
+            className={classNames(
+              styles.editorSection,
+              editorLayoutModel.fullscreenPane === "right" && styles.fullscreen,
+              editorLayoutModel.fullscreenPane === "left" && styles.hidden
+            )}
+            style={{
+              width:
+                editorLayoutModel.fullscreenPane === "right"
+                  ? "100%"
+                  : `${100 - editorLayoutModel.leftPaneWidth}%`,
+            }}
+          >
+            <EditorWrapper
+              header={"Предпросмотр"}
+              documentName={selectedDocumentData.fileName || undefined}
+              isFullscreen={editorLayoutModel.fullscreenPane === "right"}
+              onFullscreenToggle={handleRightPaneFullscreen}
+              getContent={() => (
+                <Markdown text={ContentState.getText(contentStateCopy)} />
               )}
-              style={{
-                width:
-                  editorLayoutModel.fullscreenPane === "right"
-                    ? "100%"
-                    : `${100 - editorLayoutModel.leftPaneWidth}%`,
-              }}
-            >
-              <EditorWrapper
-                header={"Предпросмотр"}
-                documentName={selectedDocumentData.fileName || undefined}
-                isFullscreen={editorLayoutModel.fullscreenPane === "right"}
-                onFullscreenToggle={handleRightPaneFullscreen}
-                getContent={() => (
-                  <Markdown text={ContentState.getText(contentStateCopy)} />
-                )}
-              />
-            </div>
-          )}
+            />
+          </div>
         </div>
       )}
     </div>
