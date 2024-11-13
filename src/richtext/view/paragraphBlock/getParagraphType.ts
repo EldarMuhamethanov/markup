@@ -4,16 +4,15 @@ type ParagraphType =
   | "ordered-list-item"
   | "unordered-list-item"
   | "quote"
-  | "code-block-open"
-  | "code-block-close";
+  | "code-block-bracket"
+  | "code-block";
 
 const paragraphTypeToRegexMap: Map<ParagraphType, RegExp> = new Map([
   ["header", /^\s*(#{1,6}) /],
   ["ordered-list-item", /^\s*\d+\. /],
   ["unordered-list-item", /^\s*- /],
   ["quote", /^\s*> /],
-  ["code-block-open", /^\s*```sh\s*$/],
-  ["code-block-close", /^\s*```\s*$/],
+  ["code-block-bracket", /^\s*```([a-zA-Z0-9+-]*)\s*$/],
   ["text", /.*/],
 ]);
 

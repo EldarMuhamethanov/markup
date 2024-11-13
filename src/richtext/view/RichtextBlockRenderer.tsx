@@ -13,17 +13,15 @@ function renderBlocks(contentState: ContentStateData) {
   return contentState.blockMap.order.map((key, index) => {
     const paragraph = contentState.blockMap.blocks[key];
     let paragraphType = getParagraphType(paragraph.text);
+    
     if (
       codeBlockOpened &&
-      paragraphType !== "code-block-close" &&
-      paragraphType !== "code-block-open"
+      paragraphType !== "code-block-bracket"
     ) {
-      paragraphType = "code-block-open";
-    }
-    if (paragraphType === "code-block-open") {
+      paragraphType = "code-block";
+    } else if (paragraphType === "code-block-bracket" && !codeBlockOpened) {
       codeBlockOpened = true;
-    }
-    if (paragraphType === "code-block-close") {
+    } else if (paragraphType === "code-block-bracket" && codeBlockOpened) {
       codeBlockOpened = false;
     }
     return (

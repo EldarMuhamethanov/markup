@@ -22,6 +22,15 @@ function getParagraphBlock(
   return node.parentNode && getParagraphBlock(editor, node.parentNode);
 }
 
+function getStringLength(str: string): number {
+  return [...str].length;
+}
+
+function utf16OffsetToCharOffset(text: string, utf16Offset: number): number {
+  const substring = text.substring(0, utf16Offset);
+  return [...substring].length;
+}
+
 function findKeyAndOffset(
   editor: HTMLDivElement,
   node: Node,
@@ -41,10 +50,11 @@ function findKeyAndOffset(
   const parseChildren = (children: Node) => {
     if (children.nodeType === 3) {
       if (children === node) {
-        resultOffset += offset;
+        const text = children.textContent || '';
+        resultOffset += utf16OffsetToCharOffset(text, offset);
         finded = true;
       } else {
-        resultOffset += children.textContent?.length || 0;
+        resultOffset += getStringLength(children.textContent || '');
       }
     } else {
       for (const child of children.childNodes) {

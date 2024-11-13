@@ -25,8 +25,8 @@ const ParagraphBlock = ({
       paragraphType === "unordered-list-item",
     [styles.blockQuote]: paragraphType === "quote",
     [styles.blockCode]:
-      paragraphType === "code-block-open" ||
-      paragraphType === "code-block-close",
+      paragraphType === "code-block-bracket" ||
+      paragraphType === "code-block",
     [styles.blockText]: paragraphType === "text",
   });
 

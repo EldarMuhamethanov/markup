@@ -1,9 +1,13 @@
 import { SelectionStateData } from "../model/selection/SelectionState";
 
+function charOffsetToUtf16Offset(text: string, charOffset: number): number {
+  return [...text].slice(0, charOffset).join('').length;
+}
+
 function getTextNodeAndOffset(
   editor: HTMLDivElement,
   key: string,
-  offset: number
+  charOffset: number
 ): { node: Node; offset: number } | null {
   const selector = `[data-key="${key}"]`;
   const paragraphBlock = editor.querySelector(selector);
@@ -18,10 +22,13 @@ function getTextNodeAndOffset(
 
   const handleChild = (children: Node) => {
     if (children.nodeType === 3) {
-      const currNodeCharsCount = children.textContent?.length || 0;
-      if (charactersCount + currNodeCharsCount >= offset) {
+      const text = children.textContent || '';
+      const currNodeCharsCount = [...text].length;
+      
+      if (charactersCount + currNodeCharsCount >= charOffset) {
         resultNode = children;
-        resultOffset = offset - charactersCount;
+        const localOffset = charOffset - charactersCount;
+        resultOffset = charOffsetToUtf16Offset(text, localOffset);
       } else {
         charactersCount += currNodeCharsCount;
       }
