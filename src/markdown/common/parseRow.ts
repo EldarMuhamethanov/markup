@@ -112,7 +112,7 @@ const checkRow = (
 };
 
 const checkHorizontalRule = (row: string): boolean => {
-  return !!row.match(/^\*{3,}\s*$/);
+  return !!row.match(/^(\*{3,}|-{3,})\s*$/);
 };
 
 const checkFootnoteDefinition = (
