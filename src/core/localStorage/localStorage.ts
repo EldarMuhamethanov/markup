@@ -4,7 +4,8 @@ type StorageKey =
   | "documentsData"
   | "documentsContentData"
   | "editorLeftPaneWidth"
-  | "sidebarCollapsed";
+  | "sidebarCollapsed"
+  | "welcomePopupShown";
 
 type StorageKeys = Record<string, StorageKey>;
 
@@ -15,6 +16,7 @@ const STORAGE_KEYS: StorageKeys = {
   DOCUMENTS_CONTENT_DATA: "documentsContentData",
   EDITOR_LEFT_PANE_WIDTH: "editorLeftPaneWidth",
   SIDEBAR_COLLAPSED_KEY: "sidebarCollapsed",
+  WELCOME_POPUP_SHOWN: "welcomePopupShown",
 };
 
 function setValue<T>(key: StorageKey, value: T) {

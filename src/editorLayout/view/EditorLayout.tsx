@@ -19,6 +19,7 @@ import { enablePatches } from "immer";
 import { editorLayoutModel } from "../model/AppModel";
 import { observer } from "mobx-react-lite";
 import { googleDriveApi } from '../../api/GoogleDriveApi';
+import { WelcomePopup } from "./welcomePopup/WelcomePopup";
 
 const EditorLayout: React.FC = observer(() => {
   useSingleLayoutEffect(() => {
@@ -49,6 +50,7 @@ const EditorLayout: React.FC = observer(() => {
           </Content>
         </Layout>
       </Layout>
+      <WelcomePopup />
     </PdfTargetContext.Provider>
   );
 });

@@ -1,0 +1,64 @@
+.content {
+  padding: 20px 0;
+}
+
+.intro {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b5563;
+  margin-bottom: 32px;
+}
+
+.steps {
+  margin: 32px 0;
+}
+
+.steps :global(.ant-steps-item-title) {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.steps :global(.ant-steps-item-description) {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-top: 4px;
+}
+
+.steps :global(.ant-steps-item-icon) {
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.steps :global(.ant-steps-item-icon .ant-steps-icon) {
+  color: white;
+}
+
+.footer {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.modalWrapper :global(.ant-modal-content) {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.modalWrapper :global(.ant-modal-header) {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.modalWrapper :global(.ant-modal-title h3) {
+  margin: 0;
+  color: #1f2937;
+}
+
+.modalWrapper :global(.ant-modal-footer) {
+  border-top: none;
+  padding-top: 0;
+  text-align: center;
+} 
