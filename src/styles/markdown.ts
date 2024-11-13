@@ -8,6 +8,7 @@ export const markdownStyles = `
   width: 800px;
   max-width: 100%;
   box-sizing: border-box;
+  margin: 0 auto;
 }
 
 /* Таблицы */
