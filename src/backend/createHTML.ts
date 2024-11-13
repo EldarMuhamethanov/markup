@@ -21,6 +21,17 @@ export const createHTMLDocument = async (
 	</head>
 	<body>
 		${contentHTML}
+		<script>
+			document.querySelectorAll('[data-testid="copy-code-button"]').forEach(button => {
+				button.addEventListener('click', () => {
+					const codeBlock = button.closest('.code-block-wrapper');
+					const code = codeBlock.querySelector('code');
+					if (code) {
+						navigator.clipboard.writeText(code.textContent || '');
+					}
+				});
+			});
+		</script>
 	</body>
 </html>	
 `;
